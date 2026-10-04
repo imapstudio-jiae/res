@@ -1617,6 +1617,34 @@ html, body {
   background: #FFF5F5;
 }
 
+.timetable-day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.tt-day-clear-btn {
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #FFF1F0;
+  border: 1px solid #FFCCC7;
+  color: #CF1322;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: all 0.15s ease;
+}
+
+.tt-day-clear-btn:hover {
+  background: #CF1322;
+  border-color: #CF1322;
+  color: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(207, 19, 34, 0.25);
+}
+
 /* All-Day Row */
 .timetable-allday-row th,
 .timetable-allday-row td {

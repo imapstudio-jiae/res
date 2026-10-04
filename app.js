@@ -809,7 +809,13 @@ function renderWeeklyTimetableGrid(list) {
           <th>시간</th>
           ${WEEKLY_TIMETABLE_DAYS.map(d => {
             const cls = d.isSat ? 'day-sat' : d.isSun ? 'day-sun' : '';
-            return `<th class="${cls}">${d.name}</th>`;
+            const dayHasItems = list.some(item => item.dayOfWeek === d.day);
+            return `<th class="${cls}">
+              <div class="timetable-day-header">
+                <span>${d.name}</span>
+                ${dayHasItems ? `<button type="button" class="tt-day-clear-btn" data-day="${d.day}" title="${d.name} 등록 일정 전체 일괄 삭제">전체 삭제</button>` : ''}
+              </div>
+            </th>`;
           }).join('')}
         </tr>
       </thead>
@@ -884,6 +890,15 @@ function renderWeeklyTimetableGrid(list) {
       e.stopPropagation();
       const id = e.currentTarget.getAttribute('data-id');
       removeWeeklyBlockedSchedule(id);
+    });
+  });
+
+  // Bind day-bulk-clear handlers
+  el.weeklyTimetableView.querySelectorAll('.tt-day-clear-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const day = Number(e.currentTarget.getAttribute('data-day'));
+      removeAllWeeklyBlocksByDay(day);
     });
   });
 }
@@ -1051,6 +1066,29 @@ async function removeWeeklyBlockedSchedule(id) {
     alert('오류: ' + (err.message || err));
     return;
   }
+  renderBlockedListTable();
+  renderCalendar();
+  renderTimeSlots();
+  renderAdminCalendar();
+}
+
+async function removeAllWeeklyBlocksByDay(dayOfWeek) {
+  const dayName = KOREAN_WEEKDAYS[dayOfWeek];
+  const list = getWeeklyBlockedSchedules();
+  const targets = list.filter(item => item.dayOfWeek === dayOfWeek);
+  if (targets.length === 0) return;
+
+  if (!confirm(`매주 [${dayName}요일]의 고정 레슨/일정 총 ${targets.length}건을 모두 일괄 삭제하시겠습니까?`)) return;
+
+  try {
+    const { error } = await db.from('weekly_blocks').delete().eq('dayOfWeek', dayOfWeek);
+    if (error) throw error;
+    _cache.weeklyBlocks = _cache.weeklyBlocks.filter(item => item.dayOfWeek !== dayOfWeek);
+  } catch (err) {
+    alert('일괄 삭제 오류: ' + (err.message || err));
+    return;
+  }
+
   renderBlockedListTable();
   renderCalendar();
   renderTimeSlots();
