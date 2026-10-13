@@ -5,8 +5,8 @@
  * ⚠️  아래 두 줄에 본인의 Supabase 프로젝트 정보를 입력하세요
  *    Project Settings → API 에서 확인할 수 있습니다.
  */
-const SUPABASE_URL  = 'https://kntrffydktjflvgttnlt.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_WBNiCS21h_NTVBLOnKNJiw_o0R8BPc3';
+const SUPABASE_URL  = (typeof window !== 'undefined' && (window.NEXT_PUBLIC_SUPABASE_URL || window.SUPABASE_URL)) || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_SUPABASE_URL) || 'https://kntrffydktjflvgttnlt.supabase.co';
+const SUPABASE_ANON = (typeof window !== 'undefined' && (window.NEXT_PUBLIC_SUPABASE_ANON_KEY || window.SUPABASE_ANON_KEY)) || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) || 'sb_publishable_WBNiCS21h_NTVBLOnKNJiw_o0R8BPc3';
 
 // Supabase 클라이언트 초기화
 const { createClient } = window.supabase;
