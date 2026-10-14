@@ -73,7 +73,7 @@ html, body {
 .bg-blur-image {
   position: absolute;
   inset: 0;
-  background-image: url('imap_studio_hero.jpg');
+  background-image: url('imap_studio_hero.jpg?v=restore1');
   background-size: cover;
   background-position: center;
   filter: blur(80px) saturate(1.05);
@@ -118,47 +118,47 @@ html, body {
   z-index: 1;
   max-width: 820px;
   margin: 0 auto;
-  padding: 32px 18px 80px;
+  padding: 18px 18px 70px;
 }
 
 /* IMAP Studio Header */
 .studio-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .studio-brand {
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .brand-curation {
   display: inline-block;
   font-family: var(--font-serif);
-  font-size: 0.95rem;
-  letter-spacing: 0.24em;
+  font-size: 0.88rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--primary);
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .brand-logo {
   font-family: var(--font-serif);
-  font-size: 2.85rem;
+  font-size: 2.65rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   color: #1A2825;
-  line-height: 1.15;
-  margin-bottom: 6px;
+  line-height: 1.1;
+  margin-bottom: 2px;
 }
 
 .brand-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 8px auto 10px;
-  max-width: 220px;
+  gap: 10px;
+  margin: 3px auto 5px;
+  max-width: 200px;
 }
 
 .divider-line {
@@ -169,13 +169,14 @@ html, body {
 
 .divider-gem {
   color: var(--pink-accent);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
 }
 
 .brand-tagline {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
   font-weight: 400;
+  margin: 0;
 }
 
 /* Studio Hero Visual Card */
@@ -185,8 +186,8 @@ html, body {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(226, 236, 231, 0.9);
-  aspect-ratio: 21 / 9;
-  max-height: 230px;
+  aspect-ratio: 24 / 9;
+  max-height: 185px;
   background: #E8F0EC;
 }
 
@@ -209,7 +210,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 18px 22px;
+  padding: 12px 18px;
   color: #FFFFFF;
   text-align: left;
 }
@@ -1592,6 +1593,7 @@ html, body {
   font-size: 0.82rem;
   font-weight: 700;
   color: #37534C;
+  box-shadow: 0 2px 5px rgba(46, 79, 71, 0.07);
 }
 
 .timetable-grid-table thead th:first-child {
@@ -1698,6 +1700,25 @@ html, body {
 }
 .allday-badge-box .allday-del-btn:hover {
   background: rgba(185, 28, 28, 0.2);
+}
+
+
+/* 10:00 첫 번째 시간대 행 최적화 (헤더 잘림 방지 및 상단 여유 공간 확보) */
+.timetable-grid-table tbody tr.timetable-row-first td {
+  border-top: none !important;
+  padding-top: 7px !important;
+  padding-bottom: 5px !important;
+  height: 48px !important;
+}
+
+.timetable-grid-table tbody tr.timetable-row-first .timetable-time-cell {
+  padding-top: 7px !important;
+  font-weight: 800 !important;
+  color: #2E4F47 !important;
+}
+
+.timetable-grid-table tbody tr.timetable-row-first .tt-lesson-card {
+  margin-top: 1px;
 }
 
 /* Time Slot Rows */
@@ -2272,4 +2293,59 @@ html, body {
 
 .pw-btn-confirm:hover {
   background: var(--primary-hover);
+}
+
+
+/* 빠른 사유 선택 프리셋 버튼 */
+.reason-preset-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.reason-preset-label {
+  font-size: 0.72rem;
+  color: #496F65;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  user-select: none;
+}
+
+.btn-preset-chip {
+  padding: 3px 10px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #2E4F47;
+  background: #FFFFFF;
+  border: 1px solid #C5DAD1;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  line-height: 1.4;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.btn-preset-chip:hover {
+  background: #E0EFE8;
+  border-color: #7DAEA0;
+  color: #1E3731;
+  transform: translateY(-1px);
+}
+
+.btn-preset-chip:active {
+  transform: translateY(0) scale(0.96);
+  background: #D2E7DE;
+}
+
+.btn-preset-chip.active-preset {
+  background: #2E4F47;
+  color: #FFFFFF;
+  border-color: #2E4F47;
+  box-shadow: 0 2px 5px rgba(46, 79, 71, 0.28);
 }

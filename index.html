@@ -34,18 +34,14 @@
           <span class="divider-gem">✦</span>
           <span class="divider-line"></span>
         </div>
-        <p class="brand-tagline">음악을 배우고, 만들고, 기록하는 아늑한 공간</p>
+        <p class="brand-tagline">음악을 배우고, 만들고, 기록하는 공간</p>
       </div>
 
       <!-- Studio Hero Visual Card -->
       <div class="studio-hero-card">
-        <img src="imap_studio_hero.jpg" alt="IMAP Studio Interior" class="hero-img">
+        <img src="imap_studio_hero.jpg?v=restore1" alt="IMAP Studio Interior" class="hero-img">
         <div class="hero-overlay">
-          <div class="hero-badge">
-            <span class="live-dot"></span>
-            <span>상담 예약 접수 중</span>
-          </div>
-          <p class="hero-message">원하시는 상담 일정을 남겨주시면 확인 후 정성껏 안내해 드리겠습니다.</p>
+          <p class="hero-message">원하시는 상담 일정을 남겨주시면 확인 후 안내해 드리겠습니다.</p>
         </div>
       </div>
     </header>
@@ -73,7 +69,7 @@
                   <span class="type-icon">🎶</span>
                   <div class="type-text">
                     <strong class="type-title">레슨 상담</strong>
-                    <span class="type-sub">어쿠스틱기타 일렉기타 베이스 클래식기타 드럼 미디</span>
+                    <span class="type-sub">클래식기타 어쿠스틱기타 일렉기타 베이스기타 드럼 미디</span>
                   </div>
                 </div>
                 <div class="check-mark">✓</div>
@@ -85,7 +81,7 @@
                   <span class="type-icon">🎚️</span>
                   <div class="type-text">
                     <strong class="type-title">작업 의뢰 상담</strong>
-                    <span class="type-sub">녹음 믹싱 마스터링 촬영 편집</span>
+                    <span class="type-sub">편곡 악보 녹음 믹싱 마스터링 촬영 편집</span>
                   </div>
                 </div>
                 <div class="check-mark">✓</div>
@@ -95,10 +91,10 @@
             <!-- Sub Items Container for '레슨 상담' -->
             <div class="sub-category-panel active" id="lessonSubPanel">
               <div class="sub-chip-group">
-                <button type="button" class="sub-chip selected" data-value="어쿠스틱 기타">어쿠스틱 기타</button>
+                <button type="button" class="sub-chip selected" data-value="클래식 기타">클래식 기타</button>
+                <button type="button" class="sub-chip" data-value="어쿠스틱 기타">어쿠스틱 기타</button>
                 <button type="button" class="sub-chip" data-value="일렉 기타">일렉 기타</button>
-                <button type="button" class="sub-chip" data-value="베이스">베이스</button>
-                <button type="button" class="sub-chip" data-value="클래식 기타">클래식 기타</button>
+                <button type="button" class="sub-chip" data-value="베이스 기타">베이스 기타</button>
                 <button type="button" class="sub-chip" data-value="드럼">드럼</button>
                 <button type="button" class="sub-chip" data-value="미디">미디</button>
                 <button type="button" class="sub-chip" data-value="음원 믹싱·마스터링">음원 믹싱·마스터링</button>
@@ -109,12 +105,11 @@
             <!-- Sub Items Container for '작업 의뢰 상담' -->
             <div class="sub-category-panel" id="workSubPanel">
               <div class="sub-chip-group">
-                <button type="button" class="sub-chip selected" data-value="음원 녹음">음원 녹음</button>
-                <button type="button" class="sub-chip" data-value="편곡">편곡</button>
-                <button type="button" class="sub-chip" data-value="악보">악보</button>
-                <button type="button" class="sub-chip" data-value="음원 제작">음원 제작</button>
+                <button type="button" class="sub-chip selected" data-value="편곡과 악보">편곡과 악보</button>
+                <button type="button" class="sub-chip" data-value="음원 녹음">음원 녹음</button>
                 <button type="button" class="sub-chip" data-value="믹싱·마스터링">믹싱·마스터링</button>
-                <button type="button" class="sub-chip" data-value="영상 촬영·편집">영상 촬영·편집</button>
+                <button type="button" class="sub-chip" data-value="영상 촬영">영상 촬영</button>
+                <button type="button" class="sub-chip" data-value="영상 편집">영상 편집</button>
               </div>
             </div>
           </div>
@@ -248,7 +243,7 @@
             <div class="review-card">
               <div class="review-row">
                 <span class="r-label">문의 유형</span>
-                <strong class="r-val highlight" id="reviewType">레슨 상담 · 어쿠스틱 기타</strong>
+                <strong class="r-val highlight" id="reviewType">레슨 상담 · 클래식 기타</strong>
               </div>
               <div class="review-row">
                 <span class="r-label">예약 날짜</span>
@@ -306,7 +301,7 @@
             <div class="ticket-body">
               <div class="ticket-row">
                 <span class="t-label">문의 유형</span>
-                <span class="t-value highlight" id="ticketType">레슨 상담 · 어쿠스틱 기타</span>
+                <span class="t-value highlight" id="ticketType">레슨 상담 · 클래식 기타</span>
               </div>
               <div class="ticket-row">
                 <span class="t-label">희망 일시</span>
@@ -353,7 +348,7 @@
     <!-- ADMIN TRIGGER & DASHBOARD MODAL -->
     <div class="admin-bar">
       <button type="button" class="admin-trigger-btn" id="openAdminBtn">
-        ⚙️ 스튜디오 관리자 (신청 <span id="adminPendingCount">0</span>건 / 차단 일정 관리)
+        ⚙️ 스튜디오 & 시스템 총괄 관리 (신청 <span id="adminPendingCount">0</span>건 / 차단 일정 관리)
       </button>
     </div>
 
@@ -576,9 +571,18 @@
 
                   <!-- 사유 입력 및 등록 바 -->
                   <div class="block-calc-banner">
-                    <div style="flex: 1; min-width: 200px; display: flex; align-items: center; gap: 8px;">
-                      <label for="weeklyReasonInput" style="font-size: 0.8rem; font-weight: 700; color: #37534C; white-space: nowrap;">레슨명/사유:</label>
-                      <input type="text" id="weeklyReasonInput" class="form-input-sm" style="flex: 1;" placeholder="예: 정기 어쿠스틱 기타 레슨 (선택사항)">
+                    <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 6px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <label for="weeklyReasonInput" style="font-size: 0.8rem; font-weight: 700; color: #37534C; white-space: nowrap;">레슨명/사유:</label>
+                        <input type="text" id="weeklyReasonInput" class="form-input-sm" style="flex: 1;" placeholder="예: 정기 어쿠스틱 기타 레슨 (선택사항)">
+                      </div>
+                      <div class="reason-preset-container">
+                        <span class="reason-preset-label">⚡ 빠른 선택:</span>
+                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="외부 일정">외부 일정</button>
+                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="운영 종료">운영 종료</button>
+                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="정기 레슨">정기 레슨</button>
+                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="작업 중">작업 중</button>
+                      </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                       <div class="block-calc-info">
@@ -615,9 +619,16 @@
                       <option value="20:00">20:00</option>
                     </select>
                   </div>
-                  <div class="block-input-group" style="flex: 1; min-width: 140px;">
+                  <div class="block-input-group" style="flex: 1; min-width: 180px;">
                     <label for="blockReasonInput">사유 (선택)</label>
                     <input type="text" id="blockReasonInput" class="form-input-sm" placeholder="예: 개인 일정 / 임시 휴무">
+                    <div class="reason-preset-container">
+                      <span class="reason-preset-label">⚡ 빠른 선택:</span>
+                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="외부 일정">외부 일정</button>
+                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="운영 종료">운영 종료</button>
+                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="정기 레슨">정기 레슨</button>
+                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="작업 중">작업 중</button>
+                    </div>
                   </div>
                   <button type="button" class="btn btn-primary btn-sm" id="addBlockBtn" style="align-self: flex-end;">+ 특정 날짜 차단</button>
                 </div>
@@ -690,7 +701,7 @@
     <!-- Footer -->
     <footer class="app-footer">
       <p class="footer-brand">IMAP Studio</p>
-      <p>© 2026 IMAP Studio. All rights reserved.</p>
+      <p>© 2026 IMAP Studio. All rights reserved. | System & Studio Operations Director: Jiae Kim</p>
     </footer>
   </div>
 
@@ -699,7 +710,7 @@
   <div id="pwModal" class="pw-modal-overlay" style="display:none;">
     <div class="pw-modal-card">
       <div class="pw-modal-icon">🔐</div>
-      <h3 class="pw-modal-title">스튜디오 관리자</h3>
+      <h3 class="pw-modal-title">스튜디오 & 시스템 총괄 관리</h3>
       <p class="pw-modal-subtitle">비밀번호를 입력해 주세요</p>
       <div class="pw-input-wrap">
         <input type="password" id="pwInput" class="pw-input" placeholder="• • • • • •" maxlength="20" autocomplete="off">

@@ -84,7 +84,7 @@ const KOREAN_WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 const state = {
   currentCalendarMonth: new Date(),
   selectedMainType: '레슨 상담',
-  selectedSubType: '어쿠스틱 기타',
+  selectedSubType: '클래식 기타',
   selectedDate: null,
   selectedTime: null,
   contactMethod: '카카오톡',
@@ -820,32 +820,13 @@ function renderWeeklyTimetableGrid(list) {
         </tr>
       </thead>
       <tbody>
-        <!-- All-Day (하루 종일) Row -->
-        <tr class="timetable-allday-row">
-          <th>종일</th>
-          ${WEEKLY_TIMETABLE_DAYS.map(d => {
-            const allDayItems = list.filter(item => item.dayOfWeek === d.day && item.time === 'ALL');
-            if (allDayItems.length === 0) {
-              return '<td></td>';
-            }
-            return `
-              <td>
-                ${allDayItems.map(item => `
-                  <div class="allday-badge-box" title="${item.reason || '정기 휴무'}">
-                    <span>🚫 ${item.reason || '정기 휴무'}</span>
-                    <button type="button" class="allday-del-btn remove-weekly-block-btn" data-id="${item.id}" title="해제">×</button>
-                  </div>
-                `).join('')}
-              </td>
-            `;
-          }).join('')}
-        </tr>
   `;
 
   // Time Slots (30 min increments)
-  WEEKLY_TIMETABLE_HOURS.forEach(timeStr => {
+  WEEKLY_TIMETABLE_HOURS.forEach((timeStr, idx) => {
     const isHour = timeStr.endsWith(':00');
-    const rowClass = isHour ? 'timetable-row-hour' : 'timetable-row-half';
+    const isFirst = idx === 0;
+    const rowClass = (isHour ? 'timetable-row-hour' : 'timetable-row-half') + (isFirst ? ' timetable-row-first' : '');
 
     html += `
       <tr class="${rowClass}">
@@ -1039,7 +1020,7 @@ async function addWeeklyBlockedSchedule() {
 
   document.querySelectorAll('input[name="weeklyDay"]').forEach(c => c.checked = false);
   document.querySelectorAll('input[name="weeklyTime"]').forEach(c => c.checked = false);
-  if (el.weeklyReasonInput) el.weeklyReasonInput.value = '';
+  if (el.weeklyReasonInput) { el.weeklyReasonInput.value = ''; document.querySelectorAll('.btn-preset-chip[data-target="weeklyReasonInput"]').forEach(b => b.classList.remove('active-preset')); }
   updateWeeklySelectionSummary();
 
   let msg = `[매주 고정 레슨/일정 차단 등록 완료]\n총 ${toInsert.length}건의 일정이 등록되었습니다.\n\n`;
@@ -1120,7 +1101,7 @@ async function addBlockedSchedule() {
   renderCalendar();
   renderTimeSlots();
   renderAdminCalendar();
-  el.blockReasonInput.value = '';
+  el.blockReasonInput.value = ''; document.querySelectorAll('.btn-preset-chip[data-target="blockReasonInput"]').forEach(b => b.classList.remove('active-preset'));
   alert(`${dateVal} [${timeVal === 'ALL' ? '하루 종일' : timeVal}] 일정이 예약 불가로 차단되었습니다.`);
 }
 
@@ -1373,6 +1354,59 @@ function renderAdminDayDetail(dateStr) {
 // ----------------------------------------------------
 // Event Listeners & Initialization
 // ----------------------------------------------------
+
+// ──────────────────────────────────────────────
+// 관리자 일정 차단 사유 빠른 선택 프리셋 버튼 로직
+// ──────────────────────────────────────────────
+function initReasonPresetButtons() {
+  document.querySelectorAll(".btn-preset-chip").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = btn.getAttribute("data-target");
+      const presetText = btn.getAttribute("data-preset");
+      const targetInput = document.getElementById(targetId);
+
+      if (!targetInput || !presetText) return;
+
+      const container = btn.closest(".reason-preset-container");
+      const isAlreadyActive = btn.classList.contains("active-preset");
+
+      if (isAlreadyActive && targetInput.value.trim() === presetText) {
+        targetInput.value = "";
+        btn.classList.remove("active-preset");
+      } else {
+        targetInput.value = presetText;
+        if (container) {
+          container.querySelectorAll(".btn-preset-chip").forEach(b => b.classList.remove("active-preset"));
+        }
+        btn.classList.add("active-preset");
+      }
+
+      targetInput.focus();
+      targetInput.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
+
+  ["weeklyReasonInput", "blockReasonInput"].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener("input", () => {
+      const val = input.value.trim();
+      const parent = input.closest(".block-calc-banner, .block-input-group") || input.parentElement;
+      if (parent) {
+        const chips = parent.querySelectorAll(".btn-preset-chip");
+        chips.forEach(b => {
+          if (b.getAttribute("data-preset") === val) {
+            b.classList.add("active-preset");
+          } else {
+            b.classList.remove("active-preset");
+          }
+        });
+      }
+    });
+  });
+}
+
 function initEventListeners() {
   // 1. Main Inquiry Type Selection (레슨 상담 / 작업 의뢰 상담)
   el.inquiryTypeCards.forEach(card => {
@@ -1388,12 +1422,12 @@ function initEventListeners() {
         el.workSubPanel.classList.remove('active');
         // Set default or current active chip
         const activeChip = el.lessonSubPanel.querySelector('.sub-chip.selected') || el.lessonSubChips[0];
-        state.selectedSubType = activeChip ? activeChip.getAttribute('data-value') : '어쿠스틱 기타';
+        state.selectedSubType = activeChip ? activeChip.getAttribute('data-value') : '클래식 기타';
       } else {
         el.workSubPanel.classList.add('active');
         el.lessonSubPanel.classList.remove('active');
         const activeChip = el.workSubPanel.querySelector('.sub-chip.selected') || el.workSubChips[0];
-        state.selectedSubType = activeChip ? activeChip.getAttribute('data-value') : '음원 녹음';
+        state.selectedSubType = activeChip ? activeChip.getAttribute('data-value') : '편곡과 악보';
       }
 
       updateReviewCard();
@@ -1722,6 +1756,8 @@ function initEventListeners() {
   if (el.exportCsvBtn) {
     el.exportCsvBtn.addEventListener('click', exportCsv);
   }
+
+  initReasonPresetButtons();
 }
 
 // ──────────────────────────────────────────────
