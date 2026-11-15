@@ -2,730 +2,1671 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>IMAP Studio | 레슨 & 작업 상담 예약</title>
-  <meta name="description" content="음악을 배우고, 만들고, 기록하는 아늑한 음악 아틀리에 IMAP Studio의 상담 예약 페이지입니다.">
-  <meta property="og:title" content="IMAP Studio - 예약 신청">
-  <meta property="og:description" content="레슨 및 음악 작업 상담 일정을 확인하시고 간편하게 신청해 주세요.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMAP Studio | IMAP 기타 &amp; 사운드 스튜디오</title>
+  <meta name="description" content="음악을 배우고, 함께 연주하고, 하나의 작품으로 기록하는 공간 — 광명 IMAP 기타 & 사운드 스튜디오입니다.">
 
-  <!-- Elegant Fonts: Cormorant Garamond for luxury serif + Noto Sans KR -->
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="IMAP Studio | IMAP 기타 & 사운드 스튜디오">
+  <meta property="og:description" content="1:1 맞춤 레슨, 밴드·앙상블, 정기 무대, 음원·영상 제작.">
+  <meta property="og:image" content="/imap_studio_hero.jpg?v=deep_slate_20261115">
+
+  <!-- Fonts: Pretendard + Plus Jakarta Sans + Cormorant Garamond -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=phase3_admin_20261115">
 </head>
-<body>
-  <!-- Ambient Muted Mint & Dusty Pink Atmosphere -->
-  <div class="app-background">
-    <div class="bg-blur-image"></div>
-    <div class="pastel-glow glow-mint"></div>
-    <div class="pastel-glow glow-pink"></div>
-  </div>
+<body class="studio-body">
 
-  <div class="container" id="mainContainer">
-    <!-- IMAP Studio Header -->
-    <header class="studio-header">
-      <div class="studio-brand">
-        <span class="brand-curation">Private Music Atelier</span>
-        <h1 class="brand-logo">IMAP Studio</h1>
-        <div class="brand-divider">
-          <span class="divider-line"></span>
-          <span class="divider-gem">✦</span>
-          <span class="divider-line"></span>
-        </div>
-        <p class="brand-tagline">음악을 배우고, 만들고, 기록하는 공간</p>
+  <!-- ======================================================================
+       FIXED TOP NAVIGATION BAR (Deepest Slate Blue #182330)
+       ====================================================================== -->
+  <header class="studio-navbar" id="studioNavbar">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="https://jistage.kr" target="_blank" rel="noopener noreferrer" class="gstage-link" title="문화 기획 레이블 JI.Stage로 이동">
+          <span>←</span>
+          <span>JI.Stage</span>
+        </a>
+        <span class="nav-divider">|</span>
+        <button type="button" class="brand-btn" data-goto="home" aria-label="IMAP Studio Home">IMAP STUDIO</button>
       </div>
 
-      <!-- Studio Hero Visual Card -->
-      <div class="studio-hero-card">
-        <img src="imap_studio_hero.jpg?v=restore1" alt="IMAP Studio Interior" class="hero-img">
-        <div class="hero-overlay">
-          <p class="hero-message">원하시는 상담 일정을 남겨주시면 확인 후 안내해 드리겠습니다.</p>
-        </div>
-      </div>
-    </header>
+      <!-- Desktop Tone-on-Tone Menu Tabs -->
+      <nav class="nav-tabs" aria-label="주 메뉴">
+        <button type="button" class="nav-tab active" data-goto="home">Home</button>
+        <button type="button" class="nav-tab" data-goto="space">Space</button>
+        <button type="button" class="nav-tab" data-goto="programs">Programs</button>
+        <button type="button" class="nav-tab" data-goto="stage">Stage &amp; Vision</button>
+        <button type="button" class="nav-tab" data-goto="production">Production &amp; JI.Stage</button>
+        <button type="button" class="nav-tab" data-goto="directors">Directors</button>
+        <button type="button" class="nav-tab" data-goto="booking">Booking &amp; Contact</button>
+      </nav>
 
-    <!-- Main Booking Container -->
-    <main class="booking-card">
-      
-      <!-- FORM VIEW -->
-      <section id="formView" class="active-view">
-        <form id="consultationForm" class="streamlined-form" novalidate>
-
-          <!-- 1. 문의 유형 (Main Category & Sub-Items) -->
-          <div class="form-section">
-            <label class="section-heading">
-              <span class="step-num">1</span>
-              <span>문의 유형 <span class="req">*</span></span>
-            </label>
-            <p class="section-guide-text">원하시는 상담 주제를 선택하시면 세부 항목을 고르실 수 있습니다.</p>
-
-            <!-- Main Category Selector -->
-            <div class="inquiry-type-group" id="inquiryTypeGroup">
-              <label class="type-card selected" for="typeLesson">
-                <input type="radio" name="inquiryType" id="typeLesson" value="레슨 상담" checked>
-                <div class="card-content">
-                  <span class="type-icon">🎶</span>
-                  <div class="type-text">
-                    <strong class="type-title">레슨 상담</strong>
-                    <span class="type-sub">클래식기타 어쿠스틱기타 일렉기타 베이스기타 드럼 미디</span>
-                  </div>
-                </div>
-                <div class="check-mark">✓</div>
-              </label>
-
-              <label class="type-card" for="typeWork">
-                <input type="radio" name="inquiryType" id="typeWork" value="작업 의뢰 상담">
-                <div class="card-content">
-                  <span class="type-icon">🎚️</span>
-                  <div class="type-text">
-                    <strong class="type-title">작업 의뢰 상담</strong>
-                    <span class="type-sub">편곡 악보 녹음 믹싱 마스터링 촬영 편집</span>
-                  </div>
-                </div>
-                <div class="check-mark">✓</div>
-              </label>
-            </div>
-
-            <!-- Sub Items Container for '레슨 상담' -->
-            <div class="sub-category-panel active" id="lessonSubPanel">
-              <div class="sub-chip-group">
-                <button type="button" class="sub-chip selected" data-value="클래식 기타">클래식 기타</button>
-                <button type="button" class="sub-chip" data-value="어쿠스틱 기타">어쿠스틱 기타</button>
-                <button type="button" class="sub-chip" data-value="일렉 기타">일렉 기타</button>
-                <button type="button" class="sub-chip" data-value="베이스 기타">베이스 기타</button>
-                <button type="button" class="sub-chip" data-value="드럼">드럼</button>
-                <button type="button" class="sub-chip" data-value="미디">미디</button>
-                <button type="button" class="sub-chip" data-value="음원 믹싱·마스터링">음원 믹싱·마스터링</button>
-                <button type="button" class="sub-chip" data-value="영상 촬영·편집">영상 촬영·편집</button>
-              </div>
-            </div>
-
-            <!-- Sub Items Container for '작업 의뢰 상담' -->
-            <div class="sub-category-panel" id="workSubPanel">
-              <div class="sub-chip-group">
-                <button type="button" class="sub-chip selected" data-value="편곡과 악보">편곡과 악보</button>
-                <button type="button" class="sub-chip" data-value="음원 녹음">음원 녹음</button>
-                <button type="button" class="sub-chip" data-value="믹싱·마스터링">믹싱·마스터링</button>
-                <button type="button" class="sub-chip" data-value="영상 촬영">영상 촬영</button>
-                <button type="button" class="sub-chip" data-value="영상 편집">영상 편집</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2. 예약 날짜와 시간 -->
-          <div class="form-section">
-            <label class="section-heading">
-              <span class="step-num">2</span>
-              <span>예약 날짜와 시간 <span class="req">*</span></span>
-            </label>
-            <p class="section-guide-text">레슨 및 스튜디오 일정이 있는 시간은 자동으로 마감되어 선택할 수 없습니다.</p>
-
-            <div class="calendar-and-time-wrapper">
-              <!-- Calendar Column -->
-              <div class="calendar-box">
-                <div class="calendar-header">
-                  <div class="calendar-title-wrap">
-                    <span class="cal-badge">날짜 선택</span>
-                    <span id="currentMonthLabel" class="current-month-label">2026년 10월</span>
-                  </div>
-                  <div class="calendar-nav">
-                    <button type="button" id="prevMonthBtn" class="nav-btn" aria-label="이전 달">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    </button>
-                    <button type="button" id="nextMonthBtn" class="nav-btn" aria-label="다음 달">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="calendar-table">
-                  <div class="weekdays">
-                    <span class="sun">일</span>
-                    <span>월</span>
-                    <span>화</span>
-                    <span>수</span>
-                    <span>목</span>
-                    <span>금</span>
-                    <span class="sat">토</span>
-                  </div>
-                  <div class="days-grid" id="calendarDaysGrid">
-                    <!-- Day buttons generated via JS -->
-                  </div>
-                </div>
-
-                <div class="calendar-legend">
-                  <span class="legend-item"><span class="dot available"></span>가능</span>
-                  <span class="legend-item"><span class="dot selected"></span>선택</span>
-                  <span class="legend-item"><span class="dot disabled"></span>마감/휴무/레슨</span>
-                </div>
-              </div>
-
-              <!-- Time Column -->
-              <div class="time-box">
-                <div class="time-header">
-                  <span class="time-title">가능한 시간 선택</span>
-                  <span class="selected-date-badge" id="selectedDateDisplay">날짜를 먼저 선택하세요</span>
-                </div>
-
-                <div class="time-slot-grid" id="timeSlotGrid">
-                  <!-- Dynamically populated -->
-                </div>
-                <span class="error-msg" id="datetimeError">날짜와 시간을 모두 선택해 주세요.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. 이름 입력 -->
-          <div class="form-section">
-            <label class="section-heading" for="userName">
-              <span class="step-num">3</span>
-              <span>이름 <span class="req">*</span></span>
-            </label>
-            <input type="text" id="userName" class="form-input" placeholder="성함을 입력해 주세요 (예: 홍길동)" required autocomplete="name">
-            <span class="error-msg" id="nameError">예약자 성함을 입력해 주세요.</span>
-          </div>
-
-          <!-- 4. 문의 내용 (Placeholder with requested format) -->
-          <div class="form-section">
-            <label class="section-heading" for="userNotes">
-              <span class="step-num">4</span>
-              <span>문의 내용</span>
-            </label>
-            <p class="section-guide-text">레슨 또는 작업과 관련해 궁금하신 내용을 간단하게 남겨 주세요.</p>
-            <textarea id="userNotes" class="form-textarea" rows="3" placeholder="예: 기타레슨 문의합니다 / 연주 녹음을 하고 싶습니다. (악기 이름)"></textarea>
-          </div>
-
-          <!-- 5. 연락 방법 (선호/권장 문구 제거) -->
-          <div class="form-section">
-            <label class="section-heading">
-              <span class="step-num">5</span>
-              <span>연락 방법 <span class="req">*</span></span>
-            </label>
-            <p class="section-guide-text">필요시 연락방법을 선택해 주세요</p>
-            <div class="contact-method-group" id="contactMethodGroup">
-              <label class="method-chip selected" for="methodKakao">
-                <input type="radio" name="contactMethod" id="methodKakao" value="카카오톡" checked>
-                <span class="method-icon">💬</span>
-                <span class="method-name">카카오톡</span>
-              </label>
-
-              <label class="method-chip" for="methodPhone">
-                <input type="radio" name="contactMethod" id="methodPhone" value="전화">
-                <span class="method-icon">📞</span>
-                <span class="method-name">전화</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- 6. 전화번호 -->
-          <div class="form-section">
-            <label class="section-heading" for="userPhone">
-              <span class="step-num">6</span>
-              <span>전화번호 <span class="req">*</span></span>
-            </label>
-            <p class="section-guide-text">필요한 경우 연락드릴 수 있도록 전화번호를 남겨 주세요.</p>
-            <div class="input-with-icon">
-              <input type="tel" id="userPhone" class="form-input" placeholder="010-1234-5678" maxlength="13" required autocomplete="tel">
-              <span class="input-icon">📱</span>
-            </div>
-            <span class="error-msg" id="phoneError">올바른 휴대폰 번호(010-XXXX-XXXX)를 입력해 주세요.</span>
-          </div>
-
-          <!-- 7. 최종 예약 확인 카드 -->
-          <div class="form-section review-section">
-            <div class="review-header">
-              <span class="review-title">📋 최종 신청 내용 확인</span>
-              <span class="review-sub">입력하신 내용을 확인하신 후 신청 버튼을 눌러주세요.</span>
-            </div>
-            
-            <div class="review-card">
-              <div class="review-row">
-                <span class="r-label">문의 유형</span>
-                <strong class="r-val highlight" id="reviewType">레슨 상담 · 클래식 기타</strong>
-              </div>
-              <div class="review-row">
-                <span class="r-label">예약 날짜</span>
-                <strong class="r-val" id="reviewDate">날짜를 선택해 주세요</strong>
-              </div>
-              <div class="review-row">
-                <span class="r-label">예약 시간</span>
-                <strong class="r-val" id="reviewTime">시간을 선택해 주세요</strong>
-              </div>
-              <div class="review-row">
-                <span class="r-label">이름</span>
-                <span class="r-val" id="reviewName">-</span>
-              </div>
-              <div class="review-row">
-                <span class="r-label">연락 방법</span>
-                <span class="r-val" id="reviewMethod">카카오톡</span>
-              </div>
-              <div class="review-row">
-                <span class="r-label">전화번호</span>
-                <span class="r-val" id="reviewPhone">-</span>
-              </div>
-              <div class="review-row notes-row">
-                <span class="r-label">문의 내용</span>
-                <span class="r-val note-val" id="reviewNotes">(작성 내용 없음)</span>
-              </div>
-            </div>
-
-            <div class="notice-box">
-              <span class="notice-icon">🌿</span>
-              <p>본 예약은 자동 확정이 아닌 <strong>상담 예약 신청</strong>입니다. 스튜디오 일정을 확인한 후 남겨주신 연락처로 개별 안내를 드립니다.</p>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-submit" id="submitBookingBtn">
-              상담 예약 신청 완료하기
-            </button>
-          </div>
-
-        </form>
-      </section>
-
-      <!-- COMPLETE VIEW -->
-      <section id="completeView" class="complete-view" style="display: none;">
-        <div class="complete-container">
-          <div class="checkmark-circle"></div>
-          <h2 class="complete-title">상담 예약 신청이 접수되었습니다!</h2>
-          <p class="complete-desc">IMAP Studio 일정을 확인한 후 남겨주신 연락처로 정성껏 안내해 드리겠습니다.</p>
-
-          <!-- Ticket Card -->
-          <div class="ticket-card">
-            <div class="ticket-header">
-              <div class="ticket-brand">IMAP Studio Consultation</div>
-              <div class="ticket-id" id="ticketId">#RES-20261001</div>
-            </div>
-            <div class="ticket-body">
-              <div class="ticket-row">
-                <span class="t-label">문의 유형</span>
-                <span class="t-value highlight" id="ticketType">레슨 상담 · 클래식 기타</span>
-              </div>
-              <div class="ticket-row">
-                <span class="t-label">희망 일시</span>
-                <span class="t-value" id="ticketDateTime">2026년 10월 5일 (월) 14:00</span>
-              </div>
-              <div class="ticket-row">
-                <span class="t-label">신청자명</span>
-                <span class="t-value" id="ticketName">홍길동 님</span>
-              </div>
-              <div class="ticket-row">
-                <span class="t-label">연락 방법</span>
-                <span class="t-value" id="ticketMethod">카카오톡 (010-****-5678)</span>
-              </div>
-              <div class="ticket-row" id="ticketNotesRow">
-                <span class="t-label">문의 요약</span>
-                <span class="t-value" id="ticketNotes" style="font-size: 0.85rem; color: #4E7D73;">-</span>
-              </div>
-              <div class="ticket-status-pill">
-                <span class="status-dot"></span> 상태: <strong>신청 접수 (확인 대기)</strong>
-              </div>
-            </div>
-            <div class="ticket-footer">
-              <span>기존 일정과 겹치거나 조율이 필요한 경우 사전에 연락드립니다.</span>
-            </div>
-          </div>
-
-          <div class="complete-actions">
-            <button type="button" class="btn btn-kakao" id="kakaoChannelBtn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#000"><path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.879 5.187 4.717 6.533-.207.765-.75 2.775-.858 3.208-.135.539.198.532.417.387.172-.114 2.729-1.854 3.834-2.61.614.09 1.244.137 1.89.137 5.523 0 10-3.477 10-7.655C22 6.477 17.523 3 12 3z"/></svg>
-              카카오톡 채널로 추가 문의하기
-            </button>
-            <button type="button" class="btn btn-outline" id="downloadIcsBtn">
-              📅 캘린더에 일정 저장 (.ics)
-            </button>
-            <button type="button" class="btn btn-text" id="resetBookingBtn">
-              새로운 상담 신청하기
-            </button>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- ADMIN TRIGGER & DASHBOARD MODAL -->
-    <div class="admin-bar">
-      <button type="button" class="admin-trigger-btn" id="openAdminBtn">
-        ⚙️ 스튜디오 & 시스템 총괄 관리 (신청 <span id="adminPendingCount">0</span>건 / 차단 일정 관리)
+      <!-- Mobile Hamburger Button -->
+      <button type="button" class="mobile-toggle" id="mobileMenuBtn" aria-label="메뉴 열기/닫기" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
 
-    <!-- Admin Dashboard Modal -->
-    <div class="modal-backdrop" id="adminModal" style="display: none;">
-      <div class="modal-card">
-        <div class="modal-header">
-          <div class="admin-tabs">
-            <button type="button" class="admin-tab active" id="tabBookings">📋 신청 내역 (<span id="tabCountSpan">0</span>)</button>
-            <button type="button" class="admin-tab" id="tabCalendar">📅 캘린더 보기</button>
-            <button type="button" class="admin-tab" id="tabSchedules">🚫 일정 차단</button>
-          </div>
-          <button type="button" class="close-btn" id="closeAdminBtn">&times;</button>
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <div class="drawer-list">
+        <button type="button" class="drawer-tab active" data-goto="home">Home</button>
+        <button type="button" class="drawer-tab" data-goto="space">Space</button>
+        <button type="button" class="drawer-tab" data-goto="programs">Programs</button>
+        <button type="button" class="drawer-tab" data-goto="stage">Stage &amp; Vision</button>
+        <button type="button" class="drawer-tab" data-goto="production">Production &amp; JI.Stage</button>
+        <button type="button" class="drawer-tab" data-goto="directors">Directors</button>
+        <button type="button" class="drawer-tab" data-goto="booking">Booking &amp; Contact</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       MAIN VIEWPORT (Standalone Multi-View Container)
+       ====================================================================== -->
+  <main class="main-stage">
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 1: HOME
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view active" id="view-home" data-view="home">
+      <div class="view-container">
+
+        <!-- Centered Hero Header -->
+        <div class="home-hero-center">
+          <p class="hero-sub-label">GUITAR &amp; SOUND STUDIO · GWANGMYEONG</p>
+          <h1 class="hero-main-brand">IMAP Studio</h1>
+          <p class="hero-slogan">음악을 배우고, 함께 연주하고, 하나의 작품으로 기록하는 공간</p>
         </div>
 
-        <div class="modal-body">
-          <!-- SUB-TAB 1: Booking Requests List -->
-          <div id="adminBookingsPanel">
-            <div class="admin-toolbar">
-              <span class="admin-tip">💡 신청 접수된 상담을 [확정]하거나 [거절]할 수 있습니다. 확정된 시간은 예약자 캘린더에서 자동으로 마감됩니다.</span>
-              <div class="toolbar-btns">
-                <button type="button" class="btn-sm btn-outline" id="exportCsvBtn">📥 CSV 엑셀 다운로드</button>
+        <!-- Horizontal 2-Column Symmetric Board -->
+        <div class="home-split-board">
+
+          <!-- Left Panel: Studio Space & 4-Step Growth Cycle -->
+          <div class="board-panel">
+            <div>
+              <div class="panel-top-split">
+                <div>
+                  <h2 class="panel-heading">스튜디오 공간</h2>
+                  <div class="tone-tabs-bar" role="group" aria-label="공간 안내 이동">
+                    <button type="button" class="tone-tab-btn active" data-goto="space">컨트롤 룸 &amp; 레코딩 부스</button>
+                    <button type="button" class="tone-tab-btn" data-goto="space">Logic Pro 환경</button>
+                  </div>
+                  <p class="panel-mini-desc">
+                    듀얼 모니터와 Logic Pro 기반의 사운드 컨트롤 룸, 라이트 우드톤의 레코딩 룸이 갖춰진 IMAP 기타 스튜디오입니다.
+                  </p>
+                </div>
+
+                <div class="panel-thumb-box">
+                  <img src="/imap_studio_hero.jpg?v=deep_slate_20261115" alt="IMAP 스튜디오 컨트롤 룸 및 레코딩 부스" class="panel-thumb-img">
+                </div>
               </div>
             </div>
 
-            <div class="table-container">
+            <div class="panel-divider"></div>
+
+            <div>
+              <h3 class="cycle-mini-title">4-Step Growth Cycle</h3>
+              <div class="cycle-mini-list">
+                <div class="cycle-mini-item">
+                  <span class="cycle-mini-num">01</span>
+                  <span class="cycle-mini-name">맞춤 레슨</span>
+                </div>
+                <div class="cycle-mini-item">
+                  <span class="cycle-mini-num">02</span>
+                  <span class="cycle-mini-name">단계별 성취도 점검 &amp; 레벨업</span>
+                </div>
+                <div class="cycle-mini-item">
+                  <span class="cycle-mini-num">03</span>
+                  <span class="cycle-mini-name">밴드 &amp; 앙상블</span>
+                </div>
+                <div class="cycle-mini-item">
+                  <span class="cycle-mini-num">04</span>
+                  <span class="cycle-mini-name">소규모 발표회 &amp; 정기 연주회</span>
+                </div>
+              </div>
+
+              <div class="panel-footer-action">
+                <button type="button" class="btn-outline-slate" data-goto="space">공간 자세히 보기</button>
+                <button type="button" class="btn-outline-slate" data-goto="booking">대면 상담 예약</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Panel: Directory Grid & Studio Highlights -->
+          <div class="board-panel">
+            <div>
+              <div class="directory-matrix-header">
+                <h2 class="panel-heading" style="margin-bottom: 0;">스튜디오 주요 메뉴</h2>
+                <span class="block-note">메뉴별 단독 페이지 이동</span>
+              </div>
+
+              <div class="directory-matrix-grid">
+                <button type="button" class="matrix-tile" data-goto="space">
+                  <div class="matrix-tile-top">
+                    <span class="matrix-en">01 · Space</span>
+                    <span class="matrix-arrow">→</span>
+                  </div>
+                  <span class="matrix-title">공간 &amp; 성장 사이클</span>
+                </button>
+
+                <button type="button" class="matrix-tile" data-goto="programs">
+                  <div class="matrix-tile-top">
+                    <span class="matrix-en">02 · Programs</span>
+                    <span class="matrix-arrow">→</span>
+                  </div>
+                  <span class="matrix-title">레슨 &amp; 앙상블</span>
+                </button>
+
+                <button type="button" class="matrix-tile" data-goto="stage">
+                  <div class="matrix-tile-top">
+                    <span class="matrix-en">03 · Stage</span>
+                    <span class="matrix-arrow">→</span>
+                  </div>
+                  <span class="matrix-title">무대 이야기 &amp; 비전</span>
+                </button>
+
+                <button type="button" class="matrix-tile" data-goto="production">
+                  <div class="matrix-tile-top">
+                    <span class="matrix-en">04 · Production</span>
+                    <span class="matrix-arrow">→</span>
+                  </div>
+                  <span class="matrix-title">음원 제작 &amp; JI.Stage</span>
+                </button>
+
+                <button type="button" class="matrix-tile" data-goto="directors">
+                  <div class="matrix-tile-top">
+                    <span class="matrix-en">05 · Directors</span>
+                    <span class="matrix-arrow">→</span>
+                  </div>
+                  <span class="matrix-title">디렉터 소개</span>
+                </button>
+
+                <button type="button" class="matrix-tile" data-goto="booking">
+                  <div class="matrix-tile-top">
+                    <span class="matrix-en">06 · Booking</span>
+                    <span class="matrix-arrow">→</span>
+                  </div>
+                  <span class="matrix-title">방문 상담 &amp; 위치</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="studio-summary-box">
+              <span class="card-label" style="margin-bottom: 4px;">IMAP Guitar &amp; Sound Studio</span>
+              <ul class="summary-check-list">
+                <li>
+                  <span class="check-box-icon">✓</span>
+                  <span>초등 고학년~성인 1:1 및 2:1·3:1 맞춤 레슨 (기타 · 베이스 · 드럼)</span>
+                </li>
+                <li>
+                  <span class="check-box-icon">✓</span>
+                  <span>4~5인조 학생 밴드 &amp; 성인 기타 앙상블, 봄·가을 야외 피크닉</span>
+                </li>
+                <li>
+                  <span class="check-box-icon">✓</span>
+                  <span>두 달 주기 소규모 음악회 · 연주 모니터링 및 성장 기록 아카이브</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="panel-footer-action">
+              <button type="button" class="btn-outline-slate" data-goto="programs">커리큘럼 보기</button>
+              <button type="button" class="btn-mute" data-goto="booking">예약 및 오시는 길 →</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 2: SPACE
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-space" data-view="space">
+      <div class="view-container">
+
+        <header class="view-header">
+          <span class="eyebrow">Guitar &amp; Sound Studio · Space</span>
+          <h1 class="view-title">사운드 작업실의 집중력과 정갈한 레코딩 부스의 조화</h1>
+          <p class="view-lead">
+            대형 듀얼 모니터와 Logic Pro 기반의 프로페셔널 사운드 컨트롤 룸, 그리고 창 너머 라이트 우드 톤 레코딩 부스가 어우러져 연주와 기록에 온전히 몰입할 수 있는 IMAP 스튜디오입니다.
+          </p>
+        </header>
+
+        <!-- Studio Zones -->
+        <div class="space-split-grid">
+          <div class="space-photo-card">
+            <img src="/imap_studio_hero.jpg?v=deep_slate_20261115" alt="IMAP 스튜디오 컨트롤 룸 및 레코딩 부스 전경">
+            <p class="space-photo-caption">
+              블랙 톤 사운드 컨트롤 룸과 시창으로 연결된 라이트 우드 톤 레코딩 부스 전경
+            </p>
+          </div>
+
+          <div class="space-zone-stack">
+            <article class="slate-card">
+              <span class="card-label">Zone 01 · Control Room</span>
+              <h2 class="card-title">듀얼 모니터 &amp; Logic Pro 작업실</h2>
+              <p class="card-text">
+                정밀한 모니터링 환경과 Logic Pro 워크스테이션을 갖추어 레슨 중 실시간 녹음 피드백, 편곡·작곡, 믹싱·마스터링 작업이 즉각적으로 이루어집니다.
+              </p>
+            </article>
+
+            <article class="slate-card-steel">
+              <span class="card-label">Zone 02 · Recording Booth</span>
+              <h2 class="card-title">라이트 우드 레코딩 부스</h2>
+              <p class="card-text">
+                정갈한 라이트 우드 톤으로 마감된 독립 부스 공간에서 외부 소음의 방해 없이 악기 본연의 울림과 보컬 수음에 집중할 수 있습니다.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 4-Step Growth Cycle -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">IMAP만의 4단계 성장 사이클</h2>
+            <span class="block-note">기초 레슨에서 합주, 무대 경험, 작품 기록까지 하나의 흐름으로 이어집니다.</span>
+          </div>
+
+          <div class="cycle-grid">
+            <article class="slate-card">
+              <span class="cycle-num">01</span>
+              <h3 class="card-title">맞춤 레슨</h3>
+              <p class="card-text">
+                초등 고학년부터 성인까지 각자의 손 구조와 취향, 연습 속도에 맞춘 1:1 및 소그룹 레슨으로 탄탄한 기본기를 다집니다.
+              </p>
+            </article>
+
+            <article class="slate-card-steel">
+              <span class="cycle-num">02</span>
+              <h3 class="card-title">밴드 &amp; 앙상블</h3>
+              <p class="card-text">
+                연령과 취향에 맞추어 4~5인조 학생 밴드 및 성인 기타 앙상블을 매칭하여 서로의 소리를 들으며 합주하는 즐거움을 배웁니다.
+              </p>
+            </article>
+
+            <article class="slate-card">
+              <span class="cycle-num">03</span>
+              <h3 class="card-title">정기 무대 경험</h3>
+              <p class="card-text">
+                두 달에 한 번 열리는 소규모 음악회와 초청 공연을 통해 떨림을 이겨내고 한 곡을 끝까지 완주하는 성취감을 경험합니다.
+              </p>
+            </article>
+
+            <article class="slate-card-mute">
+              <span class="cycle-num" style="color: #FFFFFF;">04</span>
+              <h3 class="card-title">사운드 &amp; 영상 기록</h3>
+              <p class="card-text">
+                연습과 무대의 순간을 영상으로 담아 언제든 꺼내 볼 수 있는 기록으로 남깁니다.
+              </p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 3: PROGRAMS
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-programs" data-view="programs">
+      <div class="view-container">
+
+        <header class="view-header">
+          <span class="eyebrow">Curriculum &amp; Community</span>
+          <h1 class="view-title">각자의 속도로 익히고, 함께 모여 화음을 쌓는 수업</h1>
+          <p class="view-lead">
+            초등 고학년·중고등학생부터 성인 입문자까지 개별 목표에 맞춘 1:1 및 2:1·3:1 맞춤 레슨과, 함께 호흡을 맞추는 밴드·앙상블 커뮤니티를 운영합니다.
+          </p>
+        </header>
+
+        <!-- 1:1 & Small Group Lessons -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">1:1 &amp; 소그룹 맞춤 레슨 (1:1 · 2:1 · 3:1)</h2>
+            <span class="block-note">초등 고학년 ~ 성인 입문·심화</span>
+          </div>
+
+          <div class="grid-3col">
+            <article class="slate-card">
+              <span class="card-label">Guitar</span>
+              <h3 class="card-title">통기타 · 일렉 · 클래식 기타</h3>
+              <p class="card-text">
+                악기별 특성에 맞춘 올바른 자세와 탄현법부터 코드 반주, 핑거스타일, 솔로 테크닉까지 개인의 취향에 맞추어 유연하게 지도합니다.
+              </p>
+              <ul class="bullet-list">
+                <li>손이 부담 없는 기초 폼과 코드 전환 훈련</li>
+                <li>통기타 스트로크·핑거피킹 및 클래식 소품곡</li>
+                <li>일렉 기타 톤 메이킹·리프·솔로 레퍼토리</li>
+              </ul>
+            </article>
+
+            <article class="slate-card-steel">
+              <span class="card-label">Bass</span>
+              <h3 class="card-title">베이스 기타</h3>
+              <p class="card-text">
+                밴드의 리듬과 화성을 단단하게 연결하는 베이스의 역할을 이해하고, 안정적인 핑거링과 그루브 감각을 익힙니다.
+              </p>
+              <ul class="bullet-list">
+                <li>정확한 박자 감각과 뮤트·핑거링 밸런스</li>
+                <li>코드 진행에 따른 베이스 라인 이해</li>
+                <li>학생 밴드 및 합주 연계 실전 리듬 트레이닝</li>
+              </ul>
+            </article>
+
+            <article class="slate-card">
+              <span class="card-label">Drum</span>
+              <h3 class="card-title">드럼</h3>
+              <p class="card-text">
+                스틱 컨트롤과 패드 기초 훈련을 바탕으로 4·8·16비트 리듬 패턴과 필인을 익히며 곡 전체를 이끄는 힘을 기릅니다.
+              </p>
+              <ul class="bullet-list">
+                <li>바른 그립과 스트로크 밸런스 기초</li>
+                <li>장르별 기본 비트와 자연스러운 필인 응용</li>
+                <li>MR 및 팀 합주에 맞춘 템포 유지 훈련</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <!-- Band & Guitar Ensemble -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">따로 또 같이, 밴드 &amp; 기타 앙상블</h2>
+            <span class="block-note">개별 연습을 바탕으로 함께 어우러지는 합주 수업</span>
+          </div>
+
+          <div class="grid-2col">
+            <article class="slate-card">
+              <span class="card-label">Student Band</span>
+              <h3 class="card-title">학생 밴드 클래스 (4~5인조)</h3>
+              <p class="card-text">
+                개별 레슨으로 익힌 연주를 바탕으로 또래 친구들과 4~5인조 팀을 꾸려 합주 호흡을 맞춥니다. 
+                서로의 파트를 들으며 약속된 템포와 구성을 완성하는 실전 밴드 수업입니다.
+              </p>
+              <div class="tag-row">
+                <span class="tag-pill">4~5인조 팀 매칭</span>
+                <span class="tag-pill">실전 합주 호흡</span>
+                <span class="tag-pill">초청 무대 연계</span>
+              </div>
+            </article>
+
+            <article class="slate-card-steel">
+              <span class="card-label">Adult Community</span>
+              <h3 class="card-title">성인 기타 앙상블</h3>
+              <p class="card-text">
+                각자 집과 스튜디오에서 연습한 파트를 가지고 모여 함께 화음을 맞추는 성인 취미 커뮤니티입니다. 
+                혼자 연주할 때와는 다른 입체적인 화음과 따뜻한 교류의 시간을 나눕니다.
+              </p>
+              <div class="tag-row">
+                <span class="tag-pill">성인 입문자 환영</span>
+                <span class="tag-pill">파트별 화음 합주</span>
+                <span class="tag-pill">정기 음악회 참여</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Outdoor Activities -->
+        <div class="block-section">
+          <div class="outdoor-panel">
+            <span class="outdoor-badge">Community Activity</span>
+            <div>
+              <h3 class="card-title">스튜디오 야외 활동 — 봄·가을 야외 피크닉 &amp; 소규모 운동회</h3>
+              <p class="card-text">
+                연습실 안에서의 음악 활동을 넘어 세대가 자연스럽게 어우러지는 시간입니다. 매년 봄과 가을에 열리는 야외 피크닉과 소규모 운동회를 통해 아이들과 성인 수강생, 강사가 함께 웃고 소통하며 건강한 스튜디오 커뮤니티를 이어갑니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 4: STAGE & VISION
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-stage" data-view="stage">
+      <div class="view-container">
+
+        <header class="view-header">
+          <span class="eyebrow">Stage &amp; Vision</span>
+          <h1 class="view-title">떨림을 이겨내고 끝까지 완주하는 무대의 기록</h1>
+          <p class="view-lead">
+            IMAP 스튜디오는 잘 치는 사람만 서는 무대가 아니라, 연습해 온 한 곡을 관객 앞에서 완주하며 성장하는 작고 따뜻한 무대 문화를 가꾸어 갑니다.
+          </p>
+        </header>
+
+        <!-- Regular Stages -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">정기 소규모 음악회 &amp; 초청 공연</h2>
+            <span class="block-note">무대 위의 떨림이 따뜻한 성취로 바뀌는 시간</span>
+          </div>
+
+          <div class="grid-2col">
+            <article class="slate-card">
+              <span class="card-label">Bimonthly · Adult Stage</span>
+              <h3 class="card-title">두 달에 한 번, 성인 성장 발표회</h3>
+              <p class="card-text">
+                가까운 지인을 초대해 차분하고 아늑한 분위기 속에서 진행되는 소규모 음악회입니다. 
+                무대에 오르기 전의 설렘과 떨림을 이겨내고 한 곡을 완주해 내는 경험, 그리고 선생님들이 곁에서 함께 앙상블 협연으로 호흡을 보태는 순간이 큰 용기가 됩니다.
+              </p>
+              <div class="quote-box">
+                혼자서는 망설였던 무대도 선생님들의 앙상블 협연과 따뜻한 박수가 함께하면 비로소 완성되는 나의 첫 공연이 됩니다.
+              </div>
+            </article>
+
+            <article class="slate-card-steel">
+              <span class="card-label">Seasonal · Youth &amp; Family</span>
+              <h3 class="card-title">학생 친구 초청 잔치 &amp; 연 1회 학부모 초청 공연</h3>
+              <p class="card-text">
+                상·하반기에는 친구들을 초대해 함께 즐기며 밴드 연주를 선보이는 학생 친구 초청 잔치가 열리고, 
+                연 1회 학부모님을 모시고 한 해 동안 자라난 아이들의 집중력과 합주 무대를 선물하는 공식 초청 공연을 진행합니다.
+              </p>
+              <div class="quote-box">
+                상·하반기 친구들과의 즐거운 교류 무대부터 연 1회 학부모님 앞에서 선보이는 진지한 연주까지 차곡차곡 무대 경험을 쌓습니다.
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Upcoming Projects -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">Upcoming Projects — 앞으로의 발걸음</h2>
+            <span class="block-note">스튜디오와 지역 사회가 함께 여는 다음 무대</span>
+          </div>
+
+          <div class="grid-2col">
+            <article class="slate-card-mute">
+              <span class="card-label">Vision 01 · Joint Concert</span>
+              <h3 class="card-title">디렉터 · 강사 · 제자 스튜디오 합동 연주회</h3>
+              <p class="card-text">
+                스튜디오의 디렉터와 전임 강사, 그리고 모든 제자들이 세대와 악기의 경계를 넘어 한 무대에서 호흡을 맞추는 합동 연주회를 준비하고 있습니다. 배움과 연주가 하나로 이어지는 스튜디오의 대표 무대가 될 것입니다.
+              </p>
+            </article>
+
+            <article class="slate-card">
+              <span class="card-label">Vision 02 · Local Open Concours</span>
+              <h3 class="card-title">오픈 음악 콩쿠르</h3>
+              <p class="card-text">
+                스튜디오 수강생은 물론 관내 학생, 청소년 등, 음악을 하는 누구나 참여하여 기량을 나누고 서로를 응원할 수 있는 오픈 음악 콩쿠르를 기획하고 있습니다.
+              </p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 5: PRODUCTION & JI.STAGE
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-production" data-view="production">
+      <div class="view-container">
+
+        <header class="view-header">
+          <span class="eyebrow">Production &amp; Culture Planning</span>
+          <h1 class="view-title">음원과 영상 프로덕션, 그리고 JI.Stage 문화 기획</h1>
+          <p class="view-lead">
+            스튜디오 작업실에서 완성되는 세밀한 음원·영상 제작부터, 도서관·기업·문화공간을 찾아가는 JI.Stage 파트너십 프로그램까지 음악의 쓰임을 넓혀갑니다.
+          </p>
+        </header>
+
+        <div class="grid-2col">
+          <!-- Sound & Video Production -->
+          <article class="slate-card">
+            <span class="card-label">Sound &amp; Visual</span>
+            <h2 class="card-title">음원 레코딩 &amp; 뮤직비디오 제작</h2>
+            <p class="card-text">
+              단순한 연습 기록을 넘어, 편곡과 작곡부터 Logic Pro 기반의 믹싱·마스터링 음원 제작, 그리고 스튜디오가 직접 촬영·편집하는 연주 영상 및 뮤직비디오 프로덕션까지 일관된 퀄리티로 제작합니다.
+            </p>
+            <ul class="bullet-list">
+              <li>맞춤형 편곡 · 작곡 및 반주 트랙 제작</li>
+              <li>Logic Pro 기반 멀티트랙 레코딩, 믹싱 &amp; 마스터링</li>
+              <li>스튜디오 내부 조명과 사운드를 살린 연주 영상 · 뮤직비디오 직접 촬영 및 편집</li>
+              <li>개인 연주 포트폴리오 음원 프로듀싱</li>
+              <li>플레이어·강사 성장을 잇는 아티스트 발굴 및 포트폴리오 제작</li>
+            </ul>
+          </article>
+
+          <!-- JI.Stage Partnership -->
+          <article class="slate-card-steel gstage-card">
+            <div>
+              <span class="card-label">Culture Partner · JI.Stage</span>
+              <h2 class="card-title">문화 기획 파트너 — JI.Stage</h2>
+              <p class="card-text">
+                IMAP 스튜디오의 문화 기획 레이블 <strong>JI.Stage</strong>와 함께, 연주에 이야기를 더한 공연과 다양한 기관 대상 외부 출강 프로그램을 기획·운영합니다.
+              </p>
+              <ul class="bullet-list">
+                <li>해설과 스토리가 함께하는 &lt;이야기가 있는 연주&gt; 기획</li>
+                <li>도서관 · 기업 · 복합 문화공간 맞춤형 외부 출강 프로그램</li>
+                <li>사내 문화 행사, 지역 문화 축제 초청 연주 및 워크숍</li>
+              </ul>
+            </div>
+
+            <div class="gstage-action">
+              <a href="https://jistage.kr" target="_blank" rel="noopener noreferrer" class="btn-mute">
+                <span>JI.Stage 공식 사이트 방문하기</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 6: DIRECTORS
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-directors" data-view="directors">
+      <div class="view-container">
+
+        <header class="view-header">
+          <span class="eyebrow">People Behind IMAP Studio</span>
+          <h1 class="view-title">사운드의 완성도와 따뜻한 성장을 함께 이끄는 디렉터</h1>
+          <p class="view-lead">
+            각자의 속도에 맞춘 세심한 지도와 연주의 완성도를 높이는 프로페셔널 디렉팅으로, 성장이 있는 음악 생활을 함께 만들어 갑니다.
+          </p>
+        </header>
+
+        <div class="grid-2col">
+          <!-- 김인웅 대표 -->
+          <article class="slate-card director-card">
+            <div class="director-head">
+              <span class="card-label">Music Director</span>
+              <div class="director-name-row">
+                <h2 class="director-name">김인웅</h2>
+                <span class="director-alias">대표 · 뮤직 디렉터 (현장 호칭: 대표쌤 · 인웅쌤)</span>
+              </div>
+              <p class="director-en-role">Sound Directing · Arrangement · Band &amp; Ensemble Production</p>
+            </div>
+            <p class="card-text">
+              깊이 있는 연주와 사운드 디렉팅, 편곡·음원 작업 및 밴드·앙상블의 음악적 완성도를 이끄는 디렉터입니다. 
+              수강생 각자의 소리가 지닌 결을 살려내어 합주와 음원 속에서 가장 조화롭게 빛날 수 있도록 세밀하게 지도합니다.
+            </p>
+            <div class="tag-row">
+              <span class="tag-pill">편곡·음원 제작</span>
+              <span class="tag-pill">영상 프로듀싱</span>
+              <span class="tag-pill">밴드·앙상블 총괄</span>
+              <span class="tag-pill">공연 총괄 디렉팅</span>
+            </div>
+          </article>
+
+          <!-- 김지애 강사 -->
+          <article class="slate-card-steel director-card">
+            <div class="director-head">
+              <span class="card-label">Education &amp; Planning</span>
+              <div class="director-name-row">
+                <h2 class="director-name">김지애</h2>
+                <span class="director-alias">교육 기획 · 전임 강사 (현장 호칭: 지애 쌤)</span>
+              </div>
+              <p class="director-en-role">Curriculum Design · Ensemble Matching · Concert Planning</p>
+            </div>
+            <p class="card-text">
+              성인 입문자로 시작해 누구보다 수강생의 마음을 깊이 이해하며, 개인별 커리큘럼 설계, 밴드·앙상블 매칭, 정기 발표회 기획과 소통을 맡아 즐겁고 꾸준한 음악 생활을 돕는 전임 강사입니다.
+            </p>
+            <div class="tag-row">
+              <span class="tag-pill">스튜디오 총괄 운영</span>
+              <span class="tag-pill">개인별 커리큘럼 설계</span>
+              <span class="tag-pill">밴드 · 앙상블 매칭</span>
+              <span class="tag-pill">정기 발표회 기획 및 소통</span>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 7: BOOKING & CONTACT
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-booking" data-view="booking">
+      <div class="view-container">
+
+        <header class="view-header">
+          <span class="eyebrow">Booking &amp; Contact</span>
+          <h1 class="view-title">대면 방문 상담 안내 및 오시는 길</h1>
+          <p class="view-lead">
+            원하시는 레슨 커리큘럼부터 음원·영상 제작 의뢰까지, 음악적 방향과 목표를 함께 이야기합니다.
+          </p>
+        </header>
+
+        <!-- 4-Step Consultation Process -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">방문 상담 진행 순서 (4 Steps)</h2>
+            <span class="block-note">레슨 과정 및 작업 의뢰 맞춤 상담 (약 20분)</span>
+          </div>
+
+          <div class="grid-4col">
+            <article class="slate-card">
+              <span class="card-label">Step 01</span>
+              <h3 class="card-title">희망 시간 선택</h3>
+              <p class="card-text">예약 캘린더에서 레슨 외 비어 있는 상담 가능 시간을 확인해 신청합니다.</p>
+            </article>
+
+            <article class="slate-card-steel">
+              <span class="card-label">Step 02</span>
+              <h3 class="card-title">일정 확정 및 안내</h3>
+              <p class="card-text">스튜디오 일정 확인 후 확정 안내 문자를 발송해 드립니다. (간단한 문의는 전화 가능)</p>
+            </article>
+
+            <article class="slate-card">
+              <span class="card-label">Step 03</span>
+              <h3 class="card-title">스튜디오 방문 (약 20분)</h3>
+              <p class="card-text">예약된 시간에 방문해 원하는 목표와 현재 상황을 가볍게 나누고, 알맞은 레슨 방향과 다음 일정을 함께 조율합니다.</p>
+            </article>
+
+            <article class="slate-card-mute">
+              <span class="card-label">Step 04</span>
+              <h3 class="card-title">맞춤 커리큘럼 제안</h3>
+              <p class="card-text">상담 내용을 바탕으로 가장 편안한 수업 형태(1:1, 소그룹, 밴드/앙상블)를 안내합니다.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Live Booking Widget Area (Phase 2 Integrated) -->
+        <div class="block-section" id="bookingWidgetPlaceholder">
+          <div class="booking-widget-card">
+            <div class="widget-bar">
+              <div class="widget-bar-title">
+                <span class="status-dot"></span>
+                <span>실시간 대면 상담 예약 캘린더</span>
+              </div>
+              <span class="widget-bar-hours">운영 시간 10:00 ~ 20:00 (100% 사전 예약제)</span>
+            </div>
+
+            <div class="widget-body-live">
+
+              <!-- FORM VIEW -->
+              <div id="formView" class="booking-form-view">
+                <form id="consultationForm" class="booking-form-grid" novalidate>
+
+                  <!-- 1. 희망 악기 / 상담 분야 -->
+                  <div class="booking-step-block">
+                    <div class="booking-step-head">
+                      <span class="step-badge">01</span>
+                      <div>
+                        <h3 class="step-title">상담 분야 및 희망 악기 <span class="req-mark">*</span></h3>
+                        <p class="step-sub">원하시는 상담 주제를 고른 뒤 세부 항목을 선택해 주세요.</p>
+                      </div>
+                    </div>
+
+                    <div class="inquiry-type-group" id="inquiryTypeGroup">
+                      <label class="type-card selected" for="typeLesson">
+                        <input type="radio" name="inquiryType" id="typeLesson" value="레슨 상담" checked>
+                        <div class="type-card-inner">
+                          <span class="type-icon">🎸</span>
+                          <div>
+                            <strong class="type-title">레슨 상담</strong>
+                            <span class="type-sub">1:1 · 소그룹 · 밴드 · 성인 앙상블</span>
+                          </div>
+                        </div>
+                        <span class="type-check">✓</span>
+                      </label>
+
+                      <label class="type-card" for="typeWork">
+                        <input type="radio" name="inquiryType" id="typeWork" value="작업·출강 상담">
+                        <div class="type-card-inner">
+                          <span class="type-icon">🎚️</span>
+                          <div>
+                            <strong class="type-title">작업 · 출강 상담</strong>
+                            <span class="type-sub">음원 제작 · 영상 · JI.Stage 출강</span>
+                          </div>
+                        </div>
+                        <span class="type-check">✓</span>
+                      </label>
+                    </div>
+
+                    <!-- Sub Chips: 레슨 상담 -->
+                    <div class="sub-category-panel active" id="lessonSubPanel">
+                      <div class="sub-chip-group">
+                        <button type="button" class="sub-chip selected" data-value="통기타 (어쿠스틱)">통기타 (어쿠스틱)</button>
+                        <button type="button" class="sub-chip" data-value="일렉 기타">일렉 기타</button>
+                        <button type="button" class="sub-chip" data-value="클래식 기타">클래식 기타</button>
+                        <button type="button" class="sub-chip" data-value="베이스 기타">베이스 기타</button>
+                        <button type="button" class="sub-chip" data-value="드럼">드럼</button>
+                        <button type="button" class="sub-chip" data-value="미디 (MIDI)">미디 (MIDI)</button>
+                        <button type="button" class="sub-chip" data-value="학생 밴드 · 성인 앙상블">학생 밴드 · 성인 앙상블</button>
+                      </div>
+                    </div>
+
+                    <!-- Sub Chips: 작업 · 출강 상담 -->
+                    <div class="sub-category-panel" id="workSubPanel">
+                      <div class="sub-chip-group">
+                        <button type="button" class="sub-chip selected" data-value="편곡 · 악보">편곡 · 악보</button>
+                        <button type="button" class="sub-chip" data-value="음원 레코딩">음원 레코딩</button>
+                        <button type="button" class="sub-chip" data-value="믹싱 · 마스터링">믹싱 · 마스터링</button>
+                        <button type="button" class="sub-chip" data-value="연주 영상 · MV 제작">연주 영상 · MV 제작</button>
+                        <button type="button" class="sub-chip" data-value="JI.Stage 출강 · 공연">JI.Stage 출강 · 공연</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2. 예약 날짜 및 시간 선택 -->
+                  <div class="booking-step-block">
+                    <div class="booking-step-head">
+                      <span class="step-badge">02</span>
+                      <div>
+                        <h3 class="step-title">상담 날짜 및 시간 선택 <span class="req-mark">*</span></h3>
+                        <p class="step-sub">고정 레슨, 휴무일 및 기존 예약 시간대는 자동으로 마감(비활성화) 표시됩니다.</p>
+                      </div>
+                    </div>
+
+                    <div class="calendar-time-layout">
+                      <!-- Left: Calendar -->
+                      <div class="calendar-box">
+                        <div class="calendar-header">
+                          <span id="currentMonthLabel" class="current-month-label">2026년 11월</span>
+                          <div class="calendar-nav">
+                            <button type="button" id="prevMonthBtn" class="cal-nav-btn" aria-label="이전 달">‹</button>
+                            <button type="button" id="nextMonthBtn" class="cal-nav-btn" aria-label="다음 달">›</button>
+                          </div>
+                        </div>
+
+                        <div class="calendar-weekdays">
+                          <span class="sun">일</span>
+                          <span>월</span>
+                          <span>화</span>
+                          <span>수</span>
+                          <span>목</span>
+                          <span>금</span>
+                          <span class="sat">토</span>
+                        </div>
+
+                        <div class="days-grid" id="calendarDaysGrid">
+                          <!-- Generated by script.js -->
+                        </div>
+
+                        <div class="calendar-legend">
+                          <span class="legend-item"><span class="legend-dot available"></span>예약 가능</span>
+                          <span class="legend-item"><span class="legend-dot selected"></span>선택됨</span>
+                          <span class="legend-item"><span class="legend-dot disabled"></span>마감 / 휴무</span>
+                        </div>
+                      </div>
+
+                      <!-- Right: Time Slots -->
+                      <div class="time-box">
+                        <div class="time-header">
+                          <div>
+                            <span class="time-title">상담 가능 시간</span>
+                            <span class="selected-date-badge" id="selectedDateDisplay">날짜를 먼저 선택하세요</span>
+                          </div>
+                          <div class="interval-toggle" role="group" aria-label="시간 단위 선택">
+                            <button type="button" class="interval-btn active" data-interval="30">30분 단위</button>
+                            <button type="button" class="interval-btn" data-interval="60">1시간 단위</button>
+                          </div>
+                        </div>
+
+                        <div class="time-slot-grid" id="timeSlotGrid">
+                          <!-- Generated by script.js -->
+                        </div>
+                        <span class="field-error" id="datetimeError">날짜와 희망 시간을 모두 선택해 주세요.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 3. 신청자 정보 및 간단 메모 -->
+                  <div class="booking-step-block">
+                    <div class="booking-step-head">
+                      <span class="step-badge">03</span>
+                      <div>
+                        <h3 class="step-title">신청자 정보 및 메모 <span class="req-mark">*</span></h3>
+                        <p class="step-sub">일정 확정 및 약 20분 대면 상담 준비를 위해 기본 정보를 남겨 주세요.</p>
+                      </div>
+                    </div>
+
+                    <div class="applicant-grid">
+                      <div class="input-group">
+                        <label class="input-label" for="userName">이름 <span class="req-mark">*</span></label>
+                        <input type="text" id="userName" class="slate-input" placeholder="성함을 입력해 주세요" required autocomplete="name">
+                        <span class="field-error" id="nameError">예약자 성함을 입력해 주세요.</span>
+                      </div>
+
+                      <div class="input-group">
+                        <label class="input-label" for="userPhone">연락처 <span class="req-mark">*</span></label>
+                        <input type="tel" id="userPhone" class="slate-input" placeholder="010-1234-5678" maxlength="13" required autocomplete="tel">
+                        <span class="field-error" id="phoneError">올바른 휴대폰 번호(010-XXXX-XXXX)를 입력해 주세요.</span>
+                      </div>
+
+                      <div class="input-group">
+                        <label class="input-label">선호 연락 방법 <span class="req-mark">*</span></label>
+                        <div class="contact-method-group" id="contactMethodGroup">
+                          <label class="method-chip selected" for="methodKakao">
+                            <input type="radio" name="contactMethod" id="methodKakao" value="카카오톡" checked>
+                            <span>💬 카카오톡</span>
+                          </label>
+                          <label class="method-chip" for="methodPhone">
+                            <input type="radio" name="contactMethod" id="methodPhone" value="전화">
+                            <span>📞 전화 / 문자</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group" style="margin-top: 14px;">
+                      <label class="input-label" for="userNotes">간단한 메모 (선택)</label>
+                      <textarea id="userNotes" class="slate-textarea" rows="2" placeholder="예: 성인 입문자 통기타 1:1 레슨 문의 / 학생 밴드 합주 클래스 상담 희망"></textarea>
+                    </div>
+                  </div>
+
+                  <!-- 4. 실시간 신청 내용 확인 & 제출 -->
+                  <div class="booking-review-panel">
+                    <div class="review-summary-grid">
+                      <div class="review-item">
+                        <span class="r-label">문의 유형</span>
+                        <strong class="r-val" id="reviewType">레슨 상담 · 통기타 (어쿠스틱)</strong>
+                      </div>
+                      <div class="review-item">
+                        <span class="r-label">희망 날짜</span>
+                        <strong class="r-val" id="reviewDate">날짜를 선택해 주세요</strong>
+                      </div>
+                      <div class="review-item">
+                        <span class="r-label">희망 시간</span>
+                        <strong class="r-val" id="reviewTime">시간을 선택해 주세요</strong>
+                      </div>
+                      <div class="review-item">
+                        <span class="r-label">신청자 / 연락처</span>
+                        <strong class="r-val"><span id="reviewName">-</span> · <span id="reviewMethod">카카오톡</span> (<span id="reviewPhone">-</span>)</strong>
+                      </div>
+                      <div class="review-item review-item-wide">
+                        <span class="r-label">메모</span>
+                        <span class="r-val muted" id="reviewNotes">(작성 내용 없음)</span>
+                      </div>
+                    </div>
+
+                    <div class="review-submit-row">
+                      <p class="booking-notice-text">
+                        본 예약은 <strong>대면 상담 신청 접수</strong>이며, 스튜디오 일정 확인 후 확정 안내 문자를 발송해 드립니다.
+                      </p>
+                      <button type="submit" class="btn-mute btn-submit-booking" id="submitBookingBtn">
+                        대면 상담 예약 신청하기 →
+                      </button>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+              <!-- COMPLETE VIEW (Digital Reservation Ticket #RES-...) -->
+              <div id="completeView" class="complete-view" style="display: none;">
+                <div class="complete-header">
+                  <div class="complete-check-badge">✓</div>
+                  <h3 class="complete-title">대면 상담 예약 신청이 접수되었습니다</h3>
+                  <p class="complete-desc">스튜디오 일정 확인 후 남겨주신 연락처로 확정 안내 문자를 보내드리겠습니다.</p>
+                </div>
+
+                <!-- Digital Ticket -->
+                <div class="digital-ticket">
+                  <div class="ticket-top-band">
+                    <div>
+                      <span class="ticket-studio-name">IMAP STUDIO · CONSULTATION PASS</span>
+                      <div class="ticket-status-tag">
+                        <span class="status-dot"></span>
+                        <span>접수 완료 (확정 대기)</span>
+                      </div>
+                    </div>
+                    <div class="ticket-id" id="ticketId">#RES-20261115-0000</div>
+                  </div>
+
+                  <div class="ticket-divider-notch">
+                    <span class="notch-left"></span>
+                    <span class="notch-line"></span>
+                    <span class="notch-right"></span>
+                  </div>
+
+                  <div class="ticket-body-grid">
+                    <div class="ticket-field">
+                      <span class="t-label">상담 분야</span>
+                      <strong class="t-val" id="ticketType">레슨 상담 · 통기타 (어쿠스틱)</strong>
+                    </div>
+                    <div class="ticket-field">
+                      <span class="t-label">희망 일시</span>
+                      <strong class="t-val highlight" id="ticketDateTime">2026년 11월 16일 (월) 14:00</strong>
+                    </div>
+                    <div class="ticket-field">
+                      <span class="t-label">신청자명</span>
+                      <strong class="t-val" id="ticketName">홍길동 님</strong>
+                    </div>
+                    <div class="ticket-field">
+                      <span class="t-label">연락 방법</span>
+                      <strong class="t-val" id="ticketMethod">카카오톡 (010-****-5678)</strong>
+                    </div>
+                    <div class="ticket-field ticket-field-wide">
+                      <span class="t-label">남기신 메모</span>
+                      <span class="t-val muted" id="ticketNotes">특이사항 없음</span>
+                    </div>
+                  </div>
+
+                  <div class="ticket-bottom-note">
+                    <span>위치: 경기도 광명시 도덕로 56, 중앙하이츠상가동 3층 304호 · 방문 소요 시간 약 20분</span>
+                  </div>
+                </div>
+
+                <div class="ticket-actions">
+                  <button type="button" class="btn-mute" id="downloadIcsBtn">📅 캘린더에 일정 저장 (.ics)</button>
+                  <button type="button" class="btn-outline-slate" id="kakaoChannelBtn">💬 카카오톡 채널 문의</button>
+                  <button type="button" class="btn-outline-slate" id="resetBookingBtn">새로운 상담 신청하기</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Location & Hours -->
+        <div class="block-section">
+          <div class="block-heading">
+            <h2 class="block-title">운영 시간 및 오시는 길</h2>
+            <span class="block-note">경기도 광명시 도덕로 56, 중앙하이츠상가동 3층 304호</span>
+          </div>
+
+          <div class="grid-2col">
+            <article class="slate-card">
+              <span class="card-label">Hours &amp; Transit</span>
+              <h3 class="card-title">운영 안내 및 교통편</h3>
+              <div class="info-list">
+                <div class="info-item">
+                  <span class="info-key">도로명 주소</span>
+                  <span class="info-val"><strong>경기도 광명시 도덕로 56, 중앙하이츠상가동 3층 304호</strong></span>
+                </div>
+                <div class="info-item">
+                  <span class="info-key">운영 시간</span>
+                  <span class="info-val">10:00 ~ 20:00 (대면 상담 사전 예약제)</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-key">지하철 이용 시</span>
+                  <span class="info-val">지하철 7호선 광명사거리역 도보 약 15분</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-key">버스 환승 이용 시</span>
+                  <span class="info-val">시내버스 11번, 11-1번 / 마을버스 01번, 02번 (상가 바로 앞 정류장 하차)</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-key">주차 안내</span>
+                  <span class="info-val">중앙하이츠 상가 주차장 이용 가능</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="slate-card-steel location-card-right">
+              <div>
+                <span class="card-label">Studio Location · Pin</span>
+                <h3 class="card-title">IMAP 스튜디오 위치 안내</h3>
+
+                <!-- Mini Map Preview Card -->
+                <div class="mini-map-preview">
+                  <div class="mini-map-grid-bg"></div>
+                  <div class="map-road-h"></div>
+                  <div class="map-road-v"></div>
+                  <div class="map-pin-wrap">
+                    <div class="map-pin-marker">📍</div>
+                    <div class="map-pin-label">
+                      <strong>IMAP Studio</strong>
+                      <span>경기도 광명시 도덕로 56, 중앙하이츠상가동 3층 304호</span>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="card-text">
+                  중앙하이츠 상가동 3층 304호에 위치해 있으며, 상가 앞 버스 정류장 하차 및 상가 주차장 이용으로 편하게 방문하실 수 있습니다.
+                </p>
+              </div>
+
+              <div class="map-link-row">
+                <button type="button" id="copyAddressBtn" class="btn-outline-slate btn-copy-addr">📋 주소 복사</button>
+                <a href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EB%8F%84%EB%8D%95%EB%A1%9C%2056" target="_blank" rel="noopener noreferrer" class="btn-mute">네이버 지도 보기 ↗</a>
+                <a href="https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EB%8F%84%EB%8D%95%EB%A1%9C%2056" target="_blank" rel="noopener noreferrer" class="btn-outline-slate">카카오맵 길찾기 ↗</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         VIEW 8: STAFF ONLY INTEGRATED ADMIN HUB (Protected Standalone View)
+         ────────────────────────────────────────────────────────────────── -->
+    <section class="page-view" id="view-admin" data-view="admin">
+      <div class="view-container">
+
+        <!-- Admin Top Header Bar -->
+        <div class="admin-hub-header">
+          <div class="admin-hub-title-group">
+            <span class="card-label" style="margin-bottom: 4px;">STAFF ONLY · ADMIN CONSOLE</span>
+            <h1 class="page-title" style="margin-bottom: 4px;">IMAP 스튜디오 통합 관리자 허브</h1>
+            <p class="page-subtitle" style="margin-bottom: 0;">실시간 상담 예약 · 예약 마감 슬롯 · 주간 레슨 시간표 · 운영 To-Do &amp; 이메일 알림 관리</p>
+          </div>
+
+          <div class="admin-hub-controls">
+            <div class="admin-stat-pills">
+              <span class="admin-stat-pill">대기 상담 <strong id="adminStatPending">0</strong></span>
+              <span class="admin-stat-pill">확정 상담 <strong id="adminStatConfirmed">0</strong></span>
+              <span class="admin-stat-pill">차단/고정슬롯 <strong id="adminStatBlocked">0</strong></span>
+              <span class="admin-stat-pill">미완료 To-Do <strong id="adminStatTodo">0</strong></span>
+            </div>
+            <div class="admin-hub-btns">
+              <button type="button" class="btn-outline-slate" id="openPwChangeBtn">🔑 비밀번호 변경</button>
+              <button type="button" class="btn-mute admin-logout-btn" id="adminLogoutBtn">관리자 로그아웃 (홈페이지로 돌아가기) →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Core 2-Tab Navigation -->
+        <div class="admin-main-tabs" role="tablist" aria-label="관리자 허브 핵심 탭">
+          <button type="button" class="admin-main-tab active" id="adminTabBtnReservations" data-admin-tab="reservations" role="tab" aria-selected="true">
+            <span>📋 탭 1 · 방문자 상담 예약 관리 (Reservations &amp; Availability)</span>
+            <span class="admin-tab-badge" id="adminTotalBookingsBadge">0</span>
+          </button>
+          <button type="button" class="admin-main-tab" id="adminTabBtnOperations" data-admin-tab="operations" role="tab" aria-selected="false">
+            <span>🗓️ 탭 2 · 스튜디오 내부 운영 보드 (Weekly Schedule &amp; Memo)</span>
+          </button>
+        </div>
+
+        <!-- ==============================================================
+             ADMIN TAB 1: 방문자 상담 예약 관리 (Reservations & Availability)
+             ============================================================== -->
+        <div id="adminPanelReservations" class="admin-tab-panel active">
+
+          <!-- Section 1A: 방문자 대면 상담 예약 내역 -->
+          <div class="admin-section-card">
+            <div class="block-heading" style="margin-bottom: 14px;">
+              <div>
+                <h2 class="block-title">방문자 대면 상담 예약 내역</h2>
+                <p class="card-text" style="margin-top: 2px;">Booking &amp; Contact 페이지에서 접수된 상담 예약을 최신순으로 확인하고 상태를 관리합니다. [예약 취소(슬롯 복구)] 시 해당 날짜·시간이 방문자 달력에서 즉시 다시 열립니다.</p>
+              </div>
+              <button type="button" class="btn-outline-slate" id="exportCsvBtn">📥 CSV 내보내기</button>
+            </div>
+
+            <div class="admin-toolbar">
+              <div class="admin-filter-group" role="group" aria-label="예약 상태 필터">
+                <button type="button" class="admin-filter-btn active" data-filter="all">전체</button>
+                <button type="button" class="admin-filter-btn" data-filter="pending">신청 대기</button>
+                <button type="button" class="admin-filter-btn" data-filter="confirmed">예약 확정</button>
+                <button type="button" class="admin-filter-btn" data-filter="completed">상담 완료</button>
+                <button type="button" class="admin-filter-btn" data-filter="declined">예약 취소</button>
+              </div>
+              <div class="admin-search-wrap">
+                <input type="search" id="adminBookingSearch" class="form-input admin-search-input" placeholder="예약번호, 이름, 연락처, 메모 검색...">
+              </div>
+            </div>
+
+            <div class="admin-table-wrap">
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>신청일시</th>
-                    <th>문의유형</th>
-                    <th>예약희망시간</th>
-                    <th>이름/연락처</th>
-                    <th>문의내용</th>
-                    <th>상태</th>
-                    <th>관리/변경</th>
+                    <th>예약번호 / 접수일시</th>
+                    <th>신청자 / 연락처</th>
+                    <th>희망 날짜 · 시간</th>
+                    <th>상담 / 악기 유형</th>
+                    <th>메모</th>
+                    <th>현재 상태</th>
+                    <th>상태 변경 및 관리</th>
                   </tr>
                 </thead>
-                <tbody id="adminTableBody">
-                  <!-- Populated via JS -->
+                <tbody id="adminBookingsTableBody">
+                  <!-- Populated by script.js -->
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- SUB-TAB 2: Admin Calendar View -->
-          <div id="adminCalendarPanel" style="display: none;">
-            <div class="admin-cal-header">
-              <button type="button" class="admin-cal-nav" id="adminCalPrev">&#8249;</button>
-              <span class="admin-cal-month" id="adminCalMonthLabel"></span>
-              <button type="button" class="admin-cal-nav" id="adminCalNext">&#8250;</button>
+          <!-- Section 1B: 예약 불가 시간대 (휴무일 / 고정 레슨 시간) 수동 차단 관리 -->
+          <div class="admin-section-card">
+            <div class="block-heading" style="margin-bottom: 14px;">
+              <div>
+                <h2 class="block-title">예약 불가 시간대 수동 차단 관리 (휴무일 / 고정 레슨)</h2>
+                <p class="card-text" style="margin-top: 2px;">원하는 날짜·시간 또는 매주 고정 레슨 시간을 '예약 마감'으로 잠그거나 해제합니다. 변경 사항은 방문자 예약 캘린더에 즉시 반영됩니다.</p>
+              </div>
             </div>
-            <div class="admin-cal-weekdays">
-              <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
-            </div>
-            <div class="admin-cal-grid" id="adminCalGrid"></div>
-            <div class="admin-cal-detail" id="adminCalDetail"></div>
-          </div>
 
-          <!-- SUB-TAB 3: Blocked Schedules (Recurring Lessons & Specific Dates) -->
-          <div id="adminSchedulesPanel" style="display: none;">
-            <div class="block-form-box">
-              <div class="schedule-mode-toggle">
-                <button type="button" class="mode-toggle-btn active" id="modeWeeklyBtn">🔁 매주 반복 고정 레슨 설정</button>
-                <button type="button" class="mode-toggle-btn" id="modeSingleBtn">📅 특정 날짜 1회성 차단</button>
+            <div class="block-mode-tabs">
+              <button type="button" class="block-mode-btn active" id="blockModeSingleBtn">📅 특정 날짜·시간 수동 잠금 (휴무일 / 1회성 마감)</button>
+              <button type="button" class="block-mode-btn" id="blockModeWeeklyBtn">🔁 매주 반복 고정 레슨 시간 잠금</button>
+            </div>
+
+            <!-- Single Date/Time Lock Panel -->
+            <div id="singleBlockPanel" class="block-subpanel active">
+              <div class="block-form-grid">
+                <div class="block-field">
+                  <label class="form-label" for="blockDateInput">날짜 선택</label>
+                  <input type="date" id="blockDateInput" class="form-input">
+                </div>
+                <div class="block-field">
+                  <label class="form-label" for="blockTimeSelect">차단 시간대</label>
+                  <select id="blockTimeSelect" class="form-input">
+                    <option value="ALL">🚫 하루 종일 휴무 (ALL)</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+                  </select>
+                </div>
+                <div class="block-field block-field-grow">
+                  <label class="form-label" for="blockReasonInput">차단 사유 (내부 메모)</label>
+                  <input type="text" id="blockReasonInput" class="form-input" placeholder="예: 스튜디오 휴무, 녹음 세션, 외부 출강">
+                  <div class="reason-preset-row">
+                    <button type="button" class="reason-preset-chip" data-target="blockReasonInput" data-preset="스튜디오 휴무">스튜디오 휴무</button>
+                    <button type="button" class="reason-preset-chip" data-target="blockReasonInput" data-preset="외부 일정">외부 일정</button>
+                    <button type="button" class="reason-preset-chip" data-target="blockReasonInput" data-preset="정기 레슨">정기 레슨</button>
+                    <button type="button" class="reason-preset-chip" data-target="blockReasonInput" data-preset="녹음·제작 세션">녹음·제작 세션</button>
+                  </div>
+                </div>
+                <div class="block-field block-field-btn">
+                  <button type="button" class="btn-mute" id="addBlockBtn">+ 예약 마감 잠금</button>
+                </div>
               </div>
 
-              <!-- Form 1: Weekly Recurring Lesson -->
-              <!-- Form 1: Weekly Recurring Lesson -->
-              <div id="weeklyBlockForm">
-                <h4>🔁 매주 고정 레슨 / 반복 일정 등록</h4>
-                <p class="admin-tip">지정하신 요일과 시간은 <strong>매주 자동으로 예약이 차단</strong>되어 예약자가 선택할 수 없습니다. (요일과 시간을 복수 선택하여 여러 일정을 한 번에 일괄 등록할 수 있습니다)</p>
-                
-                <div class="block-multi-section">
-                  <!-- 요일 다중 선택 -->
-                  <div class="multi-select-group">
-                    <div class="multi-select-header">
-                      <span class="multi-select-label">📅 반복 요일 선택 (다중 선택)</span>
-                      <div class="quick-select-btns">
-                        <button type="button" class="quick-btn" id="btnDaysAll">전체</button>
-                        <button type="button" class="quick-btn" id="btnDaysWeekday">평일(월~금)</button>
-                        <button type="button" class="quick-btn" id="btnDaysWeekend">주말(토,일)</button>
-                        <button type="button" class="quick-btn" id="btnDaysClear">선택해제</button>
-                      </div>
-                    </div>
-                    <div class="chip-checkbox-grid" id="weeklyDaysContainer">
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="1" class="chip-check-input">
-                        <span class="chip-check-btn">월요일</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="2" class="chip-check-input">
-                        <span class="chip-check-btn">화요일</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="3" class="chip-check-input">
-                        <span class="chip-check-btn">수요일</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="4" class="chip-check-input">
-                        <span class="chip-check-btn">목요일</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="5" class="chip-check-input">
-                        <span class="chip-check-btn">금요일</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="6" class="chip-check-input">
-                        <span class="chip-check-btn day-sat">토요일</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyDay" value="0" class="chip-check-input">
-                        <span class="chip-check-btn day-sun">일요일</span>
-                      </label>
+              <!-- Interactive Quick Slot Lock Grid -->
+              <div class="quick-lock-box">
+                <div class="quick-lock-header">
+                  <span class="form-label" style="margin-bottom: 0;">⚡ 선택한 날짜 슬롯 원클릭 잠금 / 해제 (<span id="quickLockDateLabel">오늘</span>)</span>
+                  <div class="quick-lock-legend">
+                    <span class="ql-dot open"></span> 선택 가능
+                    <span class="ql-dot locked"></span> 관리자 마감 잠금
+                    <span class="ql-dot booked"></span> 고객 예약/고정레슨
+                  </div>
+                </div>
+                <div id="quickSlotLockGrid" class="quick-slot-lock-grid">
+                  <!-- Populated by script.js -->
+                </div>
+              </div>
+
+              <!-- Active Single-Date Blocked List -->
+              <div class="block-list-header">
+                <h3 class="block-sub-title">특정 날짜 차단 목록 (<span id="singleBlockCountSpan">0</span>건)</h3>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>차단 날짜</th>
+                      <th>차단 시간</th>
+                      <th>사유</th>
+                      <th>상태</th>
+                      <th>해제</th>
+                    </tr>
+                  </thead>
+                  <tbody id="blockedListBody">
+                    <!-- Populated by script.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Weekly Recurring Block Panel -->
+            <div id="weeklyBlockPanel" class="block-subpanel" style="display: none;">
+              <div class="weekly-multi-box">
+                <div class="multi-group">
+                  <div class="multi-group-head">
+                    <span class="form-label" style="margin-bottom: 0;">📅 반복 요일 다중 선택</span>
+                    <div class="quick-btn-row">
+                      <button type="button" class="quick-chip-btn" id="btnDaysAll">전체</button>
+                      <button type="button" class="quick-chip-btn" id="btnDaysWeekday">평일(월~금)</button>
+                      <button type="button" class="quick-chip-btn" id="btnDaysWeekend">주말(토·일)</button>
+                      <button type="button" class="quick-chip-btn" id="btnDaysClear">선택해제</button>
                     </div>
                   </div>
+                  <div class="chip-checkbox-grid">
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="1"><span>월요일</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="2"><span>화요일</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="3"><span>수요일</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="4"><span>목요일</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="5"><span>금요일</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="6"><span>토요일</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyDay" value="0"><span>일요일</span></label>
+                  </div>
+                </div>
 
-                  <!-- 시간 다중 선택 (30분 단위) -->
-                  <div class="multi-select-group">
-                    <div class="multi-select-header">
-                      <span class="multi-select-label">⏰ 고정 시간 선택 (30분 단위 다중 선택)</span>
-                      <div class="quick-select-btns">
-                        <button type="button" class="quick-btn" id="btnTimesAll">정시전체</button>
-                        <button type="button" class="quick-btn" id="btnTimesMorning">오전/낮(10~14시)</button>
-                        <button type="button" class="quick-btn" id="btnTimesEvening">오후/저녁(15~20시)</button>
-                        <button type="button" class="quick-btn" id="btnTimesClear">선택해제</button>
-                      </div>
-                    </div>
-                    <div class="chip-checkbox-grid" id="weeklyTimesContainer">
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="ALL" class="chip-check-input">
-                        <span class="chip-check-btn time-all">🚫 하루 종일 (정기 휴무)</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="10:00" class="chip-check-input">
-                        <span class="chip-check-btn">10:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="10:30" class="chip-check-input">
-                        <span class="chip-check-btn">10:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="11:00" class="chip-check-input">
-                        <span class="chip-check-btn">11:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="11:30" class="chip-check-input">
-                        <span class="chip-check-btn">11:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="12:00" class="chip-check-input">
-                        <span class="chip-check-btn">12:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="12:30" class="chip-check-input">
-                        <span class="chip-check-btn">12:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="13:00" class="chip-check-input">
-                        <span class="chip-check-btn">13:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="13:30" class="chip-check-input">
-                        <span class="chip-check-btn">13:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="14:00" class="chip-check-input">
-                        <span class="chip-check-btn">14:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="14:30" class="chip-check-input">
-                        <span class="chip-check-btn">14:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="15:00" class="chip-check-input">
-                        <span class="chip-check-btn">15:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="15:30" class="chip-check-input">
-                        <span class="chip-check-btn">15:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="16:00" class="chip-check-input">
-                        <span class="chip-check-btn">16:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="16:30" class="chip-check-input">
-                        <span class="chip-check-btn">16:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="17:00" class="chip-check-input">
-                        <span class="chip-check-btn">17:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="17:30" class="chip-check-input">
-                        <span class="chip-check-btn">17:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="18:00" class="chip-check-input">
-                        <span class="chip-check-btn">18:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="18:30" class="chip-check-input">
-                        <span class="chip-check-btn">18:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="19:00" class="chip-check-input">
-                        <span class="chip-check-btn">19:00</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="19:30" class="chip-check-input">
-                        <span class="chip-check-btn">19:30</span>
-                      </label>
-                      <label class="chip-checkbox-item">
-                        <input type="checkbox" name="weeklyTime" value="20:00" class="chip-check-input">
-                        <span class="chip-check-btn">20:00</span>
-                      </label>
+                <div class="multi-group">
+                  <div class="multi-group-head">
+                    <span class="form-label" style="margin-bottom: 0;">⏰ 고정 시간 다중 선택 (30분 단위)</span>
+                    <div class="quick-btn-row">
+                      <button type="button" class="quick-chip-btn" id="btnTimesAll">정시전체</button>
+                      <button type="button" class="quick-chip-btn" id="btnTimesMorning">오전/낮(10~14시)</button>
+                      <button type="button" class="quick-chip-btn" id="btnTimesEvening">오후/저녁(15~20시)</button>
+                      <button type="button" class="quick-chip-btn" id="btnTimesClear">선택해제</button>
                     </div>
                   </div>
+                  <div class="chip-checkbox-grid time-chips-compact">
+                    <label class="chip-check-item wide"><input type="checkbox" name="weeklyTime" value="ALL"><span>🚫 하루 종일 (정기 휴무)</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="10:00"><span>10:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="10:30"><span>10:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="11:00"><span>11:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="11:30"><span>11:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="12:00"><span>12:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="12:30"><span>12:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="13:00"><span>13:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="13:30"><span>13:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="14:00"><span>14:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="14:30"><span>14:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="15:00"><span>15:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="15:30"><span>15:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="16:00"><span>16:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="16:30"><span>16:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="17:00"><span>17:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="17:30"><span>17:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="18:00"><span>18:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="18:30"><span>18:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="19:00"><span>19:00</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="19:30"><span>19:30</span></label>
+                    <label class="chip-check-item"><input type="checkbox" name="weeklyTime" value="20:00"><span>20:00</span></label>
+                  </div>
+                </div>
 
-                  <!-- 사유 입력 및 등록 바 -->
-                  <div class="block-calc-banner">
-                    <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 6px;">
-                      <div style="display: flex; align-items: center; gap: 8px;">
-                        <label for="weeklyReasonInput" style="font-size: 0.8rem; font-weight: 700; color: #37534C; white-space: nowrap;">레슨명/사유:</label>
-                        <input type="text" id="weeklyReasonInput" class="form-input-sm" style="flex: 1;" placeholder="예: 정기 어쿠스틱 기타 레슨 (선택사항)">
-                      </div>
-                      <div class="reason-preset-container">
-                        <span class="reason-preset-label">⚡ 빠른 선택:</span>
-                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="외부 일정">외부 일정</button>
-                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="운영 종료">운영 종료</button>
-                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="정기 레슨">정기 레슨</button>
-                        <button type="button" class="btn-preset-chip" data-target="weeklyReasonInput" data-preset="작업 중">작업 중</button>
-                      </div>
+                <div class="weekly-submit-bar">
+                  <div class="weekly-reason-wrap">
+                    <input type="text" id="weeklyReasonInput" class="form-input" placeholder="고정 레슨명 또는 차단 사유 (예: 정기 어쿠스틱 기타 레슨)">
+                    <div class="reason-preset-row">
+                      <button type="button" class="reason-preset-chip" data-target="weeklyReasonInput" data-preset="정기 레슨">정기 레슨</button>
+                      <button type="button" class="reason-preset-chip" data-target="weeklyReasonInput" data-preset="운영 종료">운영 종료</button>
+                      <button type="button" class="reason-preset-chip" data-target="weeklyReasonInput" data-preset="외부 일정">외부 일정</button>
+                      <button type="button" class="reason-preset-chip" data-target="weeklyReasonInput" data-preset="작업 중">작업 중</button>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                      <div class="block-calc-info">
-                        선택 요일 <span id="selectedDaysCount" class="block-calc-count">0</span>개 × 시간 <span id="selectedTimesCount" class="block-calc-count">0</span>개 = 총 <strong id="totalCombinationsCount" class="block-calc-count">0</strong>건
-                      </div>
-                      <button type="button" class="btn btn-primary btn-sm" id="addWeeklyBlockBtn">+ 선택한 일정 일괄 차단 등록</button>
-                    </div>
+                  </div>
+                  <div class="weekly-calc-action">
+                    <span class="calc-summary">요일 <strong id="selectedDaysCount">0</strong> × 시간 <strong id="selectedTimesCount">0</strong> = 총 <strong id="totalCombinationsCount">0</strong>건</span>
+                    <button type="button" class="btn-mute" id="addWeeklyBlockBtn">+ 선택한 일정 일괄 차단 등록</button>
                   </div>
                 </div>
               </div>
 
-              <!-- Form 2: Single Date Block -->
-              <div id="singleBlockForm" style="display: none;">
-                <h4>📅 특정 날짜 1회성 예약 차단</h4>
-                <p class="admin-tip">특정 날짜 하루 또는 특정 시간대에 잡힌 개인 일정/임시 휴무를 차단합니다.</p>
-                <div class="block-inputs">
-                  <div class="block-input-group">
-                    <label for="blockDateInput">날짜</label>
-                    <input type="date" id="blockDateInput" class="form-input-sm">
+              <div class="block-list-header">
+                <h3 class="block-sub-title">매주 반복 고정 레슨/차단 목록 (<span id="weeklyBlockCountSpan">0</span>건 · 탭 2 주간 시간표와 실시간 연동)</h3>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>반복 요일</th>
+                      <th>고정 시간</th>
+                      <th>레슨 / 사유</th>
+                      <th>상태</th>
+                      <th>해제</th>
+                    </tr>
+                  </thead>
+                  <tbody id="weeklyBlockListBody">
+                    <!-- Populated by script.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1C: 예약 접수 시 이메일 즉시 알림 설정 & 보안 설정 -->
+          <div class="admin-settings-split">
+            <!-- Email Instant Alert Configuration -->
+            <div class="admin-section-card">
+              <div class="block-heading" style="margin-bottom: 12px;">
+                <div>
+                  <h2 class="block-title">예약 접수 시 이메일 즉시 알림 연동</h2>
+                  <p class="card-text" style="margin-top: 2px;">방문자가 상담 예약을 완료하는 순간 별도 백엔드 서버 없이 즉시 지정된 관리자 이메일로 예약 상세 내역을 발송합니다.</p>
+                </div>
+              </div>
+
+              <form id="emailNotificationForm" class="email-config-form" novalidate>
+                <label class="email-toggle-row">
+                  <input type="checkbox" id="emailNotifyEnabled" checked>
+                  <span>방문자 예약 완료 시 관리자 이메일 즉시 알림 자동 발송 활성화</span>
+                </label>
+
+                <div class="email-config-grid">
+                  <div class="block-field">
+                    <label class="form-label" for="notifyEmailInput">알림 수신 이메일 주소</label>
+                    <input type="email" id="notifyEmailInput" class="form-input" value="jeje1120@nate.com" placeholder="jeje1120@nate.com">
                   </div>
-                  <div class="block-input-group">
-                    <label for="blockTimeSelect">시간 (선택)</label>
-                    <select id="blockTimeSelect" class="form-input-sm">
-                      <option value="ALL">하루 종일 (전체 휴무)</option>
+                  <div class="block-field">
+                    <label class="form-label" for="emailProviderSelect">서버리스 발송 방식</label>
+                    <select id="emailProviderSelect" class="form-input">
+                      <option value="gas">Google Apps Script (웹 앱 URL 웹훅 - 무료/무제한 권장)</option>
+                      <option value="emailjs">EmailJS (Service ID / Template ID / Public Key)</option>
+                      <option value="formsubmit">FormSubmit.co (별도 키 없이 이메일만으로 즉시 발송)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Provider 1: Google Apps Script Webhook -->
+                <div id="gasConfigFields" class="provider-config-box">
+                  <div class="block-field">
+                    <label class="form-label" for="gasWebhookUrlInput">Google Apps Script 웹 앱 URL</label>
+                    <input type="url" id="gasWebhookUrlInput" class="form-input" placeholder="https://script.google.com/macros/s/AKfycb.../exec">
+                  </div>
+                  <details class="gas-guide-details">
+                    <summary>📖 1분 설정: Google Apps Script 무료 이메일 발송 코드 보기 (복사용)</summary>
+                    <p class="card-text" style="margin: 8px 0;">구글 드라이브 → 새로 만들기 → Google Apps Script에 아래 코드를 붙여넣고 [배포 → 웹 앱(액세스: 모든 사용자)] URL을 위 칸에 입력하세요.</p>
+                    <pre class="gas-code-pre" id="gasCodeSnippet">function doPost(e) {
+  var data = JSON.parse(e.postData.contents);
+  var to = data.to_email || "jeje1120@nate.com";
+  var subject = data.subject || ("[IMAP Studio 새 상담 예약] " + data.user_name + " 님");
+  var body = data.message || JSON.stringify(data, null, 2);
+  MailApp.sendEmail(to, subject, body);
+  return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(ContentService.MimeType.JSON);
+}</pre>
+                    <button type="button" class="btn-outline-slate" id="copyGasCodeBtn" style="margin-top: 8px;">📋 Apps Script 코드 복사</button>
+                  </details>
+                </div>
+
+                <!-- Provider 2: EmailJS -->
+                <div id="emailjsConfigFields" class="provider-config-box" style="display: none;">
+                  <div class="emailjs-grid">
+                    <div class="block-field">
+                      <label class="form-label" for="emailjsServiceId">EmailJS Service ID</label>
+                      <input type="text" id="emailjsServiceId" class="form-input" placeholder="service_xxxxxxx">
+                    </div>
+                    <div class="block-field">
+                      <label class="form-label" for="emailjsTemplateId">EmailJS Template ID</label>
+                      <input type="text" id="emailjsTemplateId" class="form-input" placeholder="template_xxxxxxx">
+                    </div>
+                    <div class="block-field">
+                      <label class="form-label" for="emailjsPublicKey">EmailJS Public Key</label>
+                      <input type="text" id="emailjsPublicKey" class="form-input" placeholder="Public Key 입력">
+                    </div>
+                  </div>
+                  <p class="card-text" style="margin-top: 6px; font-size: 12px;">템플릿 변수: <code>{{to_email}}</code>, <code>{{booking_id}}</code>, <code>{{user_name}}</code>, <code>{{user_phone}}</code>, <code>{{booking_date}}</code>, <code>{{booking_time}}</code>, <code>{{inquiry_type}}</code>, <code>{{user_notes}}</code></p>
+                </div>
+
+                <!-- Provider 3: FormSubmit -->
+                <div id="formsubmitConfigFields" class="provider-config-box" style="display: none;">
+                  <p class="card-text" style="font-size: 12.5px;">
+                    <strong>FormSubmit.co</strong> 방식은 별도 API 키 없이 위 수신 이메일(예: <code>jeje1120@nate.com</code>)로 바로 알림을 보냅니다.<br>
+                    (최초 1회 테스트 발송 후 수신 메일함의 Activate Form 링크를 클릭하면 이후 즉시 자동 발송됩니다.)
+                  </p>
+                </div>
+
+                <div class="email-action-row">
+                  <button type="button" class="btn-outline-slate" id="saveEmailConfigBtn">💾 알림 설정 저장</button>
+                  <button type="button" class="btn-mute" id="testEmailSendBtn">✉️ 테스트 이메일 즉시 발송</button>
+                </div>
+
+                <div id="emailTestStatus" class="email-status-banner" style="display: none;"></div>
+              </form>
+
+              <div class="email-log-section">
+                <span class="form-label" style="margin-bottom: 6px;">최근 이메일 알림 발송 이력</span>
+                <div id="emailNotificationLog" class="email-log-list">
+                  <!-- Populated by script.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Admin Security Password Change Card -->
+            <div class="admin-section-card" id="adminPwChangeCard">
+              <div class="block-heading" style="margin-bottom: 12px;">
+                <div>
+                  <h2 class="block-title">관리자 비밀번호 보안 설정</h2>
+                  <p class="card-text" style="margin-top: 2px;">Staff Only 로그인 모달에서 사용하는 관리자 비밀번호를 변경하거나 초기 설정으로 복원할 수 있습니다.</p>
+                </div>
+              </div>
+
+              <div class="pw-change-form">
+                <div class="block-field">
+                  <label class="form-label" for="newAdminPwInput">새 비밀번호 (4자 이상)</label>
+                  <input type="password" id="newAdminPwInput" class="form-input" placeholder="새 비밀번호 입력" autocomplete="new-password">
+                </div>
+                <div class="block-field">
+                  <label class="form-label" for="confirmAdminPwInput">새 비밀번호 확인</label>
+                  <input type="password" id="confirmAdminPwInput" class="form-input" placeholder="비밀번호 다시 입력" autocomplete="new-password">
+                </div>
+                <div class="email-action-row">
+                  <button type="button" class="btn-mute" id="saveAdminPwBtn">비밀번호 변경 저장</button>
+                  <button type="button" class="btn-outline-slate" id="resetAdminPwBtn">기본값 복원</button>
+                </div>
+                <p id="adminPwChangeMsg" class="card-text" style="font-size: 12.5px; margin-top: 6px;"></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==============================================================
+             ADMIN TAB 2: 스튜디오 내부 운영 보드 (Weekly Schedule & Memo)
+             ============================================================== -->
+        <div id="adminPanelOperations" class="admin-tab-panel" style="display: none;">
+          <div class="admin-ops-grid">
+
+            <!-- Left Column: 드래그 앤 드롭 주간 레슨 시간표 -->
+            <div class="admin-section-card ops-timetable-card">
+              <div class="block-heading" style="margin-bottom: 12px;">
+                <div>
+                  <h2 class="block-title">주간 레슨 시간표 (Drag &amp; Drop)</h2>
+                  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+                    <span class="sync-status-pill">🔗 방문자 예약 캘린더 고정레슨 자동 연동중</span>
+                    <span class="card-text" style="font-size: 12px;">카드를 드래그해 다른 요일/시간 칸에 놓으면 시간표와 예약 차단 시간이 함께 이동합니다.</span>
+                  </div>
+                </div>
+                <div class="ops-tt-controls">
+                  <div class="interval-toggle" role="group" aria-label="시간표 간격">
+                    <button type="button" class="interval-btn active" id="ttInterval60Btn" data-tt-interval="60">1시간</button>
+                    <button type="button" class="interval-btn" id="ttInterval30Btn" data-tt-interval="30">30분</button>
+                  </div>
+                  <button type="button" class="btn-mute" id="openAddLessonBtn">+ 새 레슨/일정 추가</button>
+                </div>
+              </div>
+
+              <!-- Quick Add Lesson Bar -->
+              <div id="addLessonQuickBar" class="add-lesson-quick-bar">
+                <div class="quick-lesson-grid">
+                  <div class="block-field">
+                    <label class="form-label" for="ttStudentInput">수강생 / 일정명</label>
+                    <input type="text" id="ttStudentInput" class="form-input" placeholder="예: 김재옹">
+                  </div>
+                  <div class="block-field">
+                    <label class="form-label" for="ttSubjectSelect">과목 / 악기</label>
+                    <select id="ttSubjectSelect" class="form-input">
+                      <option value="🎸 통기타">🎸 통기타</option>
+                      <option value="🎼 클래식기타">🎼 클래식기타</option>
+                      <option value="⚡ 일렉기타">⚡ 일렉기타</option>
+                      <option value="🎸 베이스">🎸 베이스</option>
+                      <option value="🥁 드럼">🥁 드럼</option>
+                      <option value="🎹 미디/작곡">🎹 미디/작곡</option>
+                      <option value="🎤 보컬/앙상블">🎤 보컬/앙상블</option>
+                      <option value="🎚️ 녹음/세션">🎚️ 녹음/세션</option>
+                    </select>
+                  </div>
+                  <div class="block-field">
+                    <label class="form-label" for="ttFormatSelect">수업/일정 형태</label>
+                    <select id="ttFormatSelect" class="form-input">
+                      <option value="1대1">1대1</option>
+                      <option value="그룹/앙상블">그룹/앙상블</option>
+                      <option value="개인연습/세션">개인연습/세션</option>
+                      <option value="스튜디오일정">스튜디오일정</option>
+                    </select>
+                  </div>
+                  <div class="block-field">
+                    <label class="form-label" for="ttDaySelect">요일</label>
+                    <select id="ttDaySelect" class="form-input">
+                      <option value="1">월요일</option>
+                      <option value="2">화요일</option>
+                      <option value="3">수요일</option>
+                      <option value="4">목요일</option>
+                      <option value="5">금요일</option>
+                      <option value="6">토요일</option>
+                      <option value="0">일요일</option>
+                    </select>
+                  </div>
+                  <div class="block-field">
+                    <label class="form-label" for="ttTimeSelect">시작 시간</label>
+                    <select id="ttTimeSelect" class="form-input">
                       <option value="10:00">10:00</option>
+                      <option value="10:30">10:30</option>
                       <option value="11:00">11:00</option>
+                      <option value="11:30">11:30</option>
+                      <option value="12:00">12:00</option>
+                      <option value="12:30">12:30</option>
                       <option value="13:00">13:00</option>
+                      <option value="13:30">13:30</option>
                       <option value="14:00">14:00</option>
+                      <option value="14:30">14:30</option>
                       <option value="15:00">15:00</option>
+                      <option value="15:30">15:30</option>
                       <option value="16:00">16:00</option>
+                      <option value="16:30">16:30</option>
                       <option value="17:00">17:00</option>
+                      <option value="17:30">17:30</option>
                       <option value="18:00">18:00</option>
+                      <option value="18:30">18:30</option>
                       <option value="19:00">19:00</option>
+                      <option value="19:30">19:30</option>
                       <option value="20:00">20:00</option>
                     </select>
                   </div>
-                  <div class="block-input-group" style="flex: 1; min-width: 180px;">
-                    <label for="blockReasonInput">사유 (선택)</label>
-                    <input type="text" id="blockReasonInput" class="form-input-sm" placeholder="예: 개인 일정 / 임시 휴무">
-                    <div class="reason-preset-container">
-                      <span class="reason-preset-label">⚡ 빠른 선택:</span>
-                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="외부 일정">외부 일정</button>
-                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="운영 종료">운영 종료</button>
-                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="정기 레슨">정기 레슨</button>
-                      <button type="button" class="btn-preset-chip" data-target="blockReasonInput" data-preset="작업 중">작업 중</button>
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-sm" id="addBlockBtn" style="align-self: flex-end;">+ 특정 날짜 차단</button>
+                </div>
+                <div class="quick-lesson-footer">
+                  <label class="email-toggle-row" style="margin-bottom: 0;">
+                    <input type="checkbox" id="ttSyncBlockCheck" checked>
+                    <span>방문자 예약 캘린더 고정 레슨 차단 시간으로 함께 등록</span>
+                  </label>
+                  <button type="button" class="btn-mute" id="confirmAddLessonBtn">시간표에 추가</button>
                 </div>
               </div>
-            </div>
 
-            <!-- Section: Weekly Recurring Lessons Timetable (Google Calendar Style) -->
-            <div class="schedule-section-header" style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                <h5 style="margin: 0;">🗓️ 매주 반복 고정 레슨 주간 시간표 (<span id="weeklyBlockCountSpan">0</span>건)</h5>
-                <span class="timetable-legend-badge legend-fixed">정기 고정 레슨</span>
-                <span class="timetable-legend-badge legend-booking">예약 레슨</span>
-                <span class="timetable-legend-badge legend-private">개인 레슨</span>
-              </div>
-              <div class="timetable-view-toggle">
-                <button type="button" class="view-toggle-btn active" id="btnViewTimetable">📅 주간 타임테이블</button>
-                <button type="button" class="view-toggle-btn" id="btnViewList">📋 목록 뷰</button>
+              <!-- Drag & Drop Grid -->
+              <div id="opsTimetableContainer" class="ops-timetable-wrap">
+                <!-- Populated by script.js -->
               </div>
             </div>
 
-            <!-- View 1: Weekly Timetable Grid -->
-            <div id="weeklyTimetableView" class="timetable-scroll-wrapper" style="margin-top: 10px;">
-              <!-- Dynamically populated via JS -->
-            </div>
+            <!-- Right Column: 스튜디오 운영안내 & To-Do 체크리스트 + 공유 메모 보드 -->
+            <div class="ops-right-stack">
 
-            <!-- View 2: List Table View -->
-            <div id="weeklyListView" class="table-container" style="margin-top: 10px; display: none;">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>반복 요일</th>
-                    <th>고정 시간</th>
-                    <th>레슨 / 사유</th>
-                    <th>상태</th>
-                    <th>해제</th>
-                  </tr>
-                </thead>
-                <tbody id="weeklyBlockListBody">
-                  <!-- Populated via JS -->
-                </tbody>
-              </table>
-            </div>
+              <!-- Card 1: 스튜디오 운영안내 및 To-Do 체크리스트 -->
+              <div class="admin-section-card" id="opsTodoCard">
+                <div class="block-heading" style="margin-bottom: 12px;">
+                  <div>
+                    <h2 class="block-title">스튜디오 운영안내 및 To-Do</h2>
+                    <p class="card-text" style="margin-top: 2px;">운영 체크리스트 및 레슨·상담 준비 항목</p>
+                  </div>
+                  <span class="sync-status-pill" id="todoProgressBadge">0 / 0 완료</span>
+                </div>
 
-            <!-- List 2: Single Date Blocked Table -->
-            <div class="schedule-section-header" style="margin-top: 24px;">
-              <h5>📅 특정 날짜 1회성 차단 목록 (<span id="singleBlockCountSpan">0</span>건)</h5>
-            </div>
-            <div class="table-container" style="margin-top: 8px;">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>차단 날짜</th>
-                    <th>차단 시간</th>
-                    <th>사유</th>
-                    <th>상태</th>
-                    <th>해제</th>
-                  </tr>
-                </thead>
-                <tbody id="blockedListBody">
-                  <!-- Populated via JS -->
-                </tbody>
-              </table>
+                <div class="todo-add-bar">
+                  <select id="todoTagSelect" class="form-input todo-tag-select">
+                    <option value="행정/입금">행정/입금</option>
+                    <option value="합주/레슨">합주/레슨</option>
+                    <option value="장비/시설">장비/시설</option>
+                    <option value="상담/일반">상담/일반</option>
+                  </select>
+                  <input type="text" id="todoTextInput" class="form-input todo-text-input" placeholder="새 운영 To-Do 입력...">
+                  <button type="button" class="btn-mute" id="addTodoBtn">+ 추가</button>
+                </div>
+
+                <div id="todoListContainer" class="todo-list-container">
+                  <!-- Populated by script.js -->
+                </div>
+
+                <div class="todo-footer-bar">
+                  <button type="button" class="btn-outline-slate" id="clearCompletedTodosBtn" style="font-size: 12px; padding: 6px 12px;">완료 항목 정리</button>
+                </div>
+              </div>
+
+              <!-- Card 2: 스튜디오 운영 공지 & 공유 메모 -->
+              <div class="admin-section-card" id="opsMemoCard">
+                <div class="block-heading" style="margin-bottom: 12px;">
+                  <div>
+                    <h2 class="block-title">스튜디오 운영 공지 &amp; 공유 메모</h2>
+                    <p class="card-text" style="margin-top: 2px;">디렉터 간 장비·부스·수업 전달사항 기록</p>
+                  </div>
+                </div>
+
+                <div class="memo-add-form">
+                  <div class="memo-add-row">
+                    <select id="memoCategorySelect" class="form-input memo-cat-select">
+                      <option value="📌 운영공지">📌 운영공지</option>
+                      <option value="🎙️ 장비/부스">🎙️ 장비/부스</option>
+                      <option value="🎸 레슨/합주">🎸 레슨/합주</option>
+                      <option value="☕ 비품/기타">☕ 비품/기타</option>
+                    </select>
+                    <input type="text" id="memoTitleInput" class="form-input" placeholder="메모 제목">
+                  </div>
+                  <textarea id="memoContentInput" class="form-input form-textarea" rows="2" placeholder="전달할 운영 메모 내용을 입력하세요..."></textarea>
+                  <button type="button" class="btn-outline-slate" id="addMemoBtn" style="align-self: flex-end;">+ 메모 등록</button>
+                </div>
+
+                <div id="memoListContainer" class="memo-list-container">
+                  <!-- Populated by script.js -->
+                </div>
+              </div>
+
             </div>
           </div>
-
         </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       COMMON FOOTER (Displayed on every standalone view)
+       ====================================================================== -->
+  <footer class="studio-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <p class="footer-copy">© 2026 IMAP Studio. All rights reserved.</p>
+        <p class="footer-address">경기도 광명시 도덕로 56, 중앙하이츠상가동 3층 304호 · 운영 시간 10:00 ~ 20:00</p>
+      </div>
+      <div class="footer-right">
+        <button type="button" class="staff-only-btn" id="staffOnlyBtn" title="Staff Only 통합 관리자 허브 접속">
+          <span>🔒</span>
+          <span>Staff Only</span>
+          <span id="footerPendingBadge" class="footer-pending-dot" style="display:none;">0</span>
+        </button>
       </div>
     </div>
+  </footer>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-      <p class="footer-brand">IMAP Studio</p>
-      <p>© 2026 IMAP Studio. All rights reserved. | System & Studio Operations Director: Jiae Kim</p>
-    </footer>
-  </div>
-
-
-  <!-- Custom Admin Password Modal -->
-  <div id="pwModal" class="pw-modal-overlay" style="display:none;">
-    <div class="pw-modal-card">
-      <div class="pw-modal-icon">🔐</div>
-      <h3 class="pw-modal-title">스튜디오 & 시스템 총괄 관리</h3>
-      <p class="pw-modal-subtitle">비밀번호를 입력해 주세요</p>
-      <div class="pw-input-wrap">
-        <input type="password" id="pwInput" class="pw-input" placeholder="• • • • • •" maxlength="20" autocomplete="off">
-      </div>
-      <p id="pwError" class="pw-error" style="display:none;">비밀번호가 올바르지 않습니다.</p>
-      <div class="pw-modal-actions">
-        <button type="button" id="pwCancelBtn" class="pw-btn pw-btn-cancel">취소</button>
-        <button type="button" id="pwConfirmBtn" class="pw-btn pw-btn-confirm">확인</button>
-      </div>
+  <!-- Staff Only Security Login Modal -->
+  <div id="staffModal" class="staff-modal-overlay" style="display: none;">
+    <div class="staff-modal-card">
+      <div style="font-size: 26px;">🔐</div>
+      <h3 class="staff-modal-title">Staff Only · 관리자 보안 인증</h3>
+      <p class="staff-modal-text">
+        스튜디오 통합 관리자 허브에 접속하려면 비밀번호를 입력해 주세요.
+      </p>
+      <form id="staffLoginForm" class="staff-login-form" novalidate>
+        <input type="password" id="staffPwInput" class="form-input staff-pw-input" placeholder="관리자 비밀번호 입력" autocomplete="current-password">
+        <p id="staffPwError" class="field-error" style="display: none; text-align: center;">비밀번호가 올바르지 않습니다. 다시 확인해 주세요.</p>
+        <p class="staff-pw-hint">초기 비밀번호: 기존 백업 비밀번호 또는 0000 / imap2026 (로그인 후 변경 가능)</p>
+        <div class="staff-modal-actions">
+          <button type="button" class="btn-outline-slate" id="staffModalClose">취소</button>
+          <button type="submit" class="btn-mute" id="staffLoginSubmitBtn">관리자 허브 입장 →</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <!-- Supabase JS Client (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
-
+  <script src="script.js?v=phase3_admin_20261115"></script>
 </body>
 </html>
