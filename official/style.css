@@ -812,6 +812,26 @@ button {
   line-height: 1.35;
 }
 
+.matrix-tile[data-goto="production"] {
+  border: 1px solid #FB7185;
+  color: #FB7185;
+}
+
+.matrix-tile[data-goto="production"] .matrix-en,
+.matrix-tile[data-goto="production"] .matrix-arrow,
+.matrix-tile[data-goto="production"] .matrix-title {
+  color: #FB7185;
+}
+
+.matrix-tile[data-goto="production"]:hover {
+  background: rgba(251, 113, 133, 0.12);
+  border-color: #FB7185;
+}
+
+.matrix-tile[data-goto="production"]:hover .matrix-en {
+  color: #FB7185;
+}
+
 .studio-summary-box {
   background: rgba(24, 35, 48, 0.35);
   border: 1px solid var(--border-card);
