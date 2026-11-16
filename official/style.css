@@ -861,6 +861,17 @@ button {
 /* ==========================================================================
    VIEW 4: STAGE & VISION
    ========================================================================== */
+.stage-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border-radius: var(--radius-lg);
+}
+
+.stage-card .card-text {
+  margin-bottom: 16px;
+}
+
 .quote-box {
   margin-top: 16px;
   padding: 14px 16px;
@@ -870,6 +881,12 @@ button {
   font-size: 13.5px;
   color: var(--text-body);
   line-height: 1.7;
+}
+
+.stage-card .quote-box,
+.slate-card-steel.stage-card .quote-box {
+  margin-top: auto;
+  background: var(--bg-deep-alt);
 }
 
 /* ==========================================================================
