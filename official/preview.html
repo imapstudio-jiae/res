@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMAP Studio — 실시간 인터랙티브 미리보기</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-viewer: #0E1620;
+      --bg-bar: #182330;
+      --bg-card: #243447;
+      --bg-steel: #32475E;
+      --accent: #B9CAD6;
+      --text-main: #FFFFFF;
+      --text-sub: #9FB1C4;
+      --border: rgba(148, 173, 199, 0.2);
+      --font-ko: 'Pretendard', -apple-system, sans-serif;
+      --font-en: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-viewer);
+      color: var(--text-main);
+      font-family: var(--font-ko);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Navigation Toolbar */
+    .preview-header {
+      background: var(--bg-bar);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #2E4057, #3B506B);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-en);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+    }
+
+    .brand-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .brand-sub {
+      font-size: 11.5px;
+      color: var(--text-sub);
+      margin-left: 4px;
+    }
+
+    /* View Switcher Pills */
+    .view-pills {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(14, 22, 32, 0.7);
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .view-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .view-btn:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .view-btn.active {
+      background: var(--bg-steel);
+      color: #FFFFFF;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    .view-btn.admin-pill {
+      color: #F87171;
+    }
+    .view-btn.admin-pill.active {
+      background: #7F1D1D;
+      color: #FECACA;
+    }
+
+    /* Right Tools: Device Toggle, Zoom, External Link */
+    .tools-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .device-switcher {
+      display: flex;
+      background: rgba(14, 22, 32, 0.7);
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .device-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .device-btn:hover {
+      color: #FFFFFF;
+    }
+
+    .device-btn.active {
+      background: var(--bg-steel);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--bg-steel);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Main Viewport Stage */
+    .stage-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #162230 0%, #0B1119 100%);
+      padding: 24px;
+      position: relative;
+      overflow: auto;
+    }
+
+    /* Device Mockup Wrapper */
+    .device-frame {
+      background: #182330;
+      border: 1px solid rgba(148, 173, 199, 0.25);
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Frame Topbar */
+    .frame-bar {
+      height: 32px;
+      background: #141D28;
+      border-bottom: 1px solid rgba(148, 173, 199, 0.15);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .frame-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .frame-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #3B506B;
+    }
+    .frame-dot.red { background: #E06C75; }
+    .frame-dot.yellow { background: #E5C07B; }
+    .frame-dot.green { background: #98C379; }
+
+    .frame-url {
+      font-family: var(--font-en);
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(0,0,0,0.3);
+      padding: 2px 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .frame-size-label {
+      font-family: var(--font-en);
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    /* Iframe Element */
+    .preview-iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+      background: #1E2B3A;
+      display: block;
+    }
+
+    /* Device Presets Dimensions */
+    .mode-desktop {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+    }
+
+    .mode-laptop {
+      width: 1180px;
+      height: 780px;
+      max-width: 95vw;
+      max-height: 88vh;
+    }
+
+    .mode-tablet {
+      width: 768px;
+      height: 860px;
+      max-width: 95vw;
+      max-height: 88vh;
+      border-radius: 24px;
+    }
+    .mode-tablet .frame-bar {
+      border-radius: 24px 24px 0 0;
+    }
+
+    .mode-mobile {
+      width: 390px;
+      height: 820px;
+      max-height: 88vh;
+      border-radius: 36px;
+      border-width: 6px;
+      border-color: #2E4057;
+    }
+    .mode-mobile .frame-bar {
+      height: 28px;
+      border-radius: 28px 28px 0 0;
+      justify-content: center;
+    }
+    .mode-mobile .frame-dots,
+    .mode-mobile .frame-size-label { display: none; }
+    .mode-mobile .frame-url {
+      background: transparent;
+      border: none;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Bottom Info Status Bar */
+    .preview-footer {
+      background: var(--bg-bar);
+      border-top: 1px solid var(--border);
+      padding: 6px 20px;
+      font-size: 12px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #98C379;
+      font-weight: 500;
+    }
+    .status-dot-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #98C379;
+      box-shadow: 0 0 8px #98C379;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Control Bar -->
+  <header class="preview-header">
+    <div class="brand-group">
+      <span class="brand-badge">IMAP STUDIO</span>
+      <div>
+        <span class="brand-title">실시간 통합 미리보기</span>
+        <span class="brand-sub">Deep Slate Blue &amp; Fog Grey</span>
+      </div>
+    </div>
+
+    <!-- Quick Page/View Jump Pills -->
+    <nav class="view-pills" aria-label="페이지 뷰 선택">
+      <button type="button" class="view-btn active" data-hash="home">01. 홈</button>
+      <button type="button" class="view-btn" data-hash="space">02. 공간 &amp; 장비</button>
+      <button type="button" class="view-btn" data-hash="programs">03. 레슨 프로그램</button>
+      <button type="button" class="view-btn" data-hash="stage">04. 무대 &amp; 비전</button>
+      <button type="button" class="view-btn" data-hash="production">05. 프로덕션 &amp; JI.Stage</button>
+      <button type="button" class="view-btn" data-hash="directors">06. 디렉터</button>
+      <button type="button" class="view-btn" data-hash="booking">07. 예약 &amp; 오시는길</button>
+      <button type="button" class="view-btn admin-pill" data-action="admin">🔐 관리자 허브</button>
+    </nav>
+
+    <!-- Right Controls -->
+    <div class="tools-group">
+      <!-- Device Switcher -->
+      <div class="device-switcher" role="group" aria-label="기기 모드">
+        <button type="button" class="device-btn active" data-mode="desktop" title="데스크톱 전체화면">🖥️ PC</button>
+        <button type="button" class="device-btn" data-mode="laptop" title="노트북 (1180px)">💻 랩탑</button>
+        <button type="button" class="device-btn" data-mode="tablet" title="태블릿 (768px)">📱 태블릿</button>
+        <button type="button" class="device-btn" data-mode="mobile" title="스마트폰 (390px)">📲 모바일</button>
+      </div>
+
+      <!-- Reload button -->
+      <button type="button" class="action-btn" id="reloadBtn" title="캐시 없이 새로고침">
+        <span>↺</span>
+        <span>새로고침</span>
+      </button>
+
+      <!-- Open direct in new tab -->
+      <a href="http://localhost:8080/" target="_blank" rel="noopener noreferrer" class="action-btn" id="externalLink" title="새 탭에서 열기">
+        <span>새 탭 열기 ↗</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Viewport Canvas -->
+  <main class="stage-container">
+    <div class="device-frame mode-desktop" id="deviceFrame">
+      <div class="frame-bar">
+        <div class="frame-dots">
+          <span class="frame-dot red"></span>
+          <span class="frame-dot yellow"></span>
+          <span class="frame-dot green"></span>
+        </div>
+        <div class="frame-url" id="frameUrl">http://localhost:8080/#home</div>
+        <div class="frame-size-label" id="frameSizeLabel">Desktop 100%</div>
+      </div>
+      <iframe src="/index.html#home" id="previewIframe" class="preview-iframe" title="IMAP Studio Live Preview"></iframe>
+    </div>
+  </main>
+
+  <!-- Bottom Information Bar -->
+  <footer class="preview-footer">
+    <div class="footer-left">
+      <span class="status-badge">
+        <span class="status-dot-pulse"></span>
+        <span>로컬 테스트 서버 연결됨 (Port 8080)</span>
+      </span>
+      <span>|</span>
+      <span>동기화: index.html ↔ official/index.html (100% 일치)</span>
+    </div>
+    <div class="footer-right">
+      <span>상단 뷰 탭을 누르면 즉시 해당 섹션으로 이동합니다.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const iframe = document.getElementById('previewIframe');
+      const frameContainer = document.getElementById('deviceFrame');
+      const frameUrl = document.getElementById('frameUrl');
+      const frameSizeLabel = document.getElementById('frameSizeLabel');
+      const viewButtons = document.querySelectorAll('.view-btn');
+      const deviceButtons = document.querySelectorAll('.device-btn');
+      const reloadBtn = document.getElementById('reloadBtn');
+      const externalLink = document.getElementById('externalLink');
+
+      const dimensions = {
+        desktop: 'Desktop (100% Responsive)',
+        laptop: 'Laptop (1180 × 780)',
+        tablet: 'Tablet (768 × 860)',
+        mobile: 'Mobile (390 × 820)'
+      };
+
+      // Handle View Switching
+      viewButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          viewButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const hash = btn.getAttribute('data-hash');
+          const action = btn.getAttribute('data-action');
+
+          if (action === 'admin') {
+            // Trigger admin modal or admin tab inside iframe
+            try {
+              const iframeWin = iframe.contentWindow;
+              if (iframeWin && iframeWin.location) {
+                iframeWin.location.hash = '#adminModal';
+                const staffBtn = iframeWin.document.getElementById('staffOnlyBtn');
+                if (staffBtn) staffBtn.click();
+              }
+            } catch (e) {
+              console.warn(e);
+            }
+            frameUrl.textContent = 'http://localhost:8080/#adminModal';
+            externalLink.href = 'http://localhost:8080/#adminModal';
+            return;
+          }
+
+          if (hash) {
+            try {
+              iframe.contentWindow.location.hash = '#' + hash;
+            } catch (e) {
+              iframe.src = '/index.html#' + hash;
+            }
+            frameUrl.textContent = 'http://localhost:8080/#' + hash;
+            externalLink.href = 'http://localhost:8080/#' + hash;
+          }
+        });
+      });
+
+      // Handle Device Switching
+      deviceButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          deviceButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const mode = btn.getAttribute('data-mode');
+          frameContainer.className = 'device-frame mode-' + mode;
+          frameSizeLabel.textContent = dimensions[mode] || mode;
+        });
+      });
+
+      // Reload iframe without cache
+      reloadBtn.addEventListener('click', () => {
+        const currentHash = iframe.contentWindow?.location?.hash || '#home';
+        iframe.src = '/index.html?t=' + Date.now() + currentHash;
+      });
+
+      // Listen to hash changes inside iframe
+      iframe.addEventListener('load', () => {
+        try {
+          const iframeWin = iframe.contentWindow;
+          iframeWin.addEventListener('hashchange', () => {
+            const h = (iframeWin.location.hash || '#home').replace('#', '');
+            frameUrl.textContent = 'http://localhost:8080/#' + h;
+            externalLink.href = 'http://localhost:8080/#' + h;
+            viewButtons.forEach(b => {
+              if (b.getAttribute('data-hash') === h) {
+                viewButtons.forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+              }
+            });
+          });
+        } catch (e) {
+          // ignore cross-origin if any
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
