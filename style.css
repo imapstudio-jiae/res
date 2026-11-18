@@ -585,6 +585,50 @@ button {
   padding: 18px 0 38px;
 }
 
+.home-hero-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border-card);
+  padding: 54px 24px;
+  margin-bottom: 28px;
+  background: #0F172A;
+  box-shadow: var(--shadow-card);
+}
+
+.home-hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+}
+
+.home-hero-banner:hover .home-hero-bg-img {
+  transform: scale(1.03);
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.82) 0%,
+    rgba(15, 23, 42, 0.68) 50%,
+    rgba(15, 23, 42, 0.85) 100%
+  );
+  z-index: 1;
+}
+
+.home-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
 .hero-sub-label {
   font-family: var(--font-en);
   font-size: 13px;
@@ -886,6 +930,69 @@ button {
   gap: 16px;
 }
 
+/* Space 3-Column Photo Gallery */
+.space-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.space-gallery-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.space-gallery-card:hover {
+  border-color: rgba(153, 246, 228, 0.38);
+}
+
+.gallery-img-wrap {
+  overflow: hidden;
+  border-radius: 12px;
+  background: #0F172A;
+  border-bottom: 1px solid var(--border-card);
+  aspect-ratio: 16 / 10;
+}
+
+.gallery-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.space-gallery-card:hover .gallery-img-wrap img,
+.prod-mini-item:hover .gallery-img-wrap img {
+  transform: scale(1.03);
+}
+
+.gallery-caption-body {
+  padding: 14px 16px 16px;
+}
+
+.gallery-mint-label {
+  display: inline-block;
+  font-family: var(--font-en);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #99F6E4;
+  margin-bottom: 5px;
+}
+
+.gallery-caption-desc {
+  font-size: 13.5px;
+  color: var(--text-body);
+  line-height: 1.55;
+}
+
 .cycle-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -948,6 +1055,37 @@ button {
   white-space: nowrap;
 }
 
+.programs-feature-panel {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 22px;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 18px 22px;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition);
+}
+
+.programs-feature-panel:hover {
+  border-color: var(--page-accent-border);
+}
+
+.programs-feature-panel:hover .programs-feature-img img {
+  transform: scale(1.03);
+}
+
+.programs-feature-img {
+  border-bottom: none;
+  border: 1px solid var(--border-card);
+}
+
+.programs-feature-body {
+  display: flex;
+  flex-direction: column;
+}
+
 /* ==========================================================================
    VIEW 4: STAGE & VISION
    ========================================================================== */
@@ -987,6 +1125,39 @@ button {
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid var(--page-accent-border);
+}
+
+/* Production 2-Column Mini Gallery */
+.prod-mini-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.prod-mini-item {
+  margin: 0;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.prod-mini-item:hover {
+  border-color: var(--page-accent-border);
+}
+
+.prod-mini-item .gallery-img-wrap {
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+}
+
+.prod-mini-caption {
+  padding: 9px 11px;
+  font-size: 12px;
+  color: var(--text-body);
+  line-height: 1.45;
 }
 
 .gstage-action {
@@ -3536,6 +3707,9 @@ button {
   .panel-top-split,
   .cycle-mini-list,
   .directory-matrix-grid,
+  .space-gallery-grid,
+  .prod-mini-gallery,
+  .programs-feature-panel,
   .cycle-grid,
   .grid-3col,
   .grid-2col,
