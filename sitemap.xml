@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ※ 실제 공식 도메인 주소가 확정되면 아래 모든 https://imapstudio.kr 주소를 실제 도메인으로 교체해 주세요. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://imapstudio.kr/</loc>
+    <loc>https://imap.jistage.kr/</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#home</loc>
+    <loc>https://imap.jistage.kr/#home</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#space</loc>
+    <loc>https://imap.jistage.kr/#space</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#programs</loc>
+    <loc>https://imap.jistage.kr/#programs</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#stage</loc>
+    <loc>https://imap.jistage.kr/#stage</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#production</loc>
+    <loc>https://imap.jistage.kr/#production</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#directors</loc>
+    <loc>https://imap.jistage.kr/#directors</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://imapstudio.kr/#booking</loc>
+    <loc>https://imap.jistage.kr/#booking</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 </urlset>
-

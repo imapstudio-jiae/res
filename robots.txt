@@ -10,6 +10,4 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-# ※ 실제 공식 도메인 주소가 확정되면 아래 도메인(https://imapstudio.kr)을 실제 도메인으로 교체해 주세요.
-Sitemap: https://imapstudio.kr/sitemap.xml
-
+Sitemap: https://imap.jistage.kr/sitemap.xml
