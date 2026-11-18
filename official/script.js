@@ -2529,4 +2529,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (isAdminAuthenticated()) {
     renderAllAdminPanels();
   }
+
+  // FullScore PC/모바일 자동 분기 링크 적용
+  const FULLSCORE_PC_URL = 'https://www.fullscore.co.kr/shop/prd_search.php?prdname=%EC%9D%8C%EC%95%85%EB%86%80%EC%9D%B4%ED%84%B0&x=0&y=0';
+  const FULLSCORE_MOBILE_URL = 'https://www.fullscore.co.kr/m/sub/prdsearch.php?prdname=%EC%9D%8C%EC%95%85%EB%86%80%EC%9D%B4%ED%84%B0&x=0&y=0';
+  const syncFullScoreLinks = () => {
+    const isMobile = /iPhone|Android.*Mobile|Mobile/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const targetUrl = isMobile ? FULLSCORE_MOBILE_URL : FULLSCORE_PC_URL;
+    document.querySelectorAll('a[href*="fullscore.co.kr"]').forEach(link => {
+      link.setAttribute('href', targetUrl);
+    });
+  };
+  syncFullScoreLinks();
+  window.addEventListener('resize', syncFullScoreLinks);
 });
